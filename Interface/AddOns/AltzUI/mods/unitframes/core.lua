@@ -260,10 +260,10 @@ local CpointsUpdate = function(self, event, unit, powerType)
 	local cur, max, oldMax
 	if(UnitHasVehicleUI'player') then
 		cur = GetComboPoints('vehicle', 'target')
-		max = UnitPowerMax('vehicle', SPELL_POWER_COMBO_POINTS)
+		max = UnitPowerMax('vehicle', Enum.PowerType.ComboPoints)
 	else
-		cur = UnitPower('player', SPELL_POWER_COMBO_POINTS)
-		max = UnitPowerMax('player', SPELL_POWER_COMBO_POINTS)
+		cur = UnitPower('player', Enum.PowerType.ComboPoints)
+		max = UnitPowerMax('player', Enum.PowerType.ComboPoints)
 	end
 
 	if max <= 6 then
@@ -808,7 +808,7 @@ local whitelist = {
 }
 
 local PostUpdateIcon = function(icons, unit, icon, index, offset)
-	local name, _, _, _, _, duration, expirationTime, _, _, _, SpellID = UnitAura(unit, index, icon.filter)
+	local name, _, _, _, duration, expirationTime, _, _, _, SpellID = UnitAura(unit, index, icon.filter)
 
 	if icon.isPlayer or UnitIsFriend("player", unit) or not icon.isDebuff or aCoreCDB["UnitframeOptions"]["AuraFilterwhitelist"][tostring(SpellID)] or whitelist[tostring(SpellID)] then
 		icon.icon:SetDesaturated(false)

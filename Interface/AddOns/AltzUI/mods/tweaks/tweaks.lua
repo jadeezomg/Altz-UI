@@ -341,7 +341,7 @@ end
 
 --[[-----------------------------------------------------------------------------
 Simple Vignette alert
--------------------------------------------------------------------------------]]
+
 local vignettes = {}
 
 if vignettealert then
@@ -359,7 +359,7 @@ if vignettealert then
 		end
 	end
 end
-
+-------------------------------------------------------------------------------]]
 
 --[[-----------------------------------------------------------------------------
 Flash Taskbar
@@ -481,14 +481,14 @@ end
 
 --[[-----------------------------------------------------------------------------
 LFG Auto Accept Proposal
--------------------------------------------------------------------------------]]
+
 if croods then
 	WorldMapButton.coordText = WorldMapFrameCloseButton:CreateFontString(nil, "OVERLAY", "GameFontGreen") 
 	WorldMapButton.coordText:SetPoint("BOTTOM", WorldMapScrollFrame, "BOTTOM", 0, 6)
 
 	WorldMapButton:HookScript("OnUpdate", function(self)
 	    if select(2, GetInstanceInfo()) == "none" then
-		   local px, py = GetPlayerMapPosition("player") 
+		   local px, py = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"),"player")
 		   local x, y = GetCursorPosition() 
 		   local width, height, scale = self:GetWidth(), self:GetHeight(), self:GetEffectiveScale() 
 		   local centerX, centerY = self:GetCenter() 
@@ -505,6 +505,7 @@ if croods then
 	    end
 	end) 
 end
+-------------------------------------------------------------------------------]]
 --[[-----------------------------------------------------------------------------
 LFG Auto Accept Proposal
 -------------------------------------------------------------------------------]]

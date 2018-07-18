@@ -204,9 +204,9 @@ oUF.Tags.Events['Mlight:ripTime'] = 'UNIT_AURA'
 
 -- Paladin 骑士
 oUF.Tags.Methods['Mlight:beacon'] = function(u) --道标
-    local name, _,_,_,_,_, expirationTime, fromwho = UnitBuff(u, GetSpellInfo(53563))
-	local name2, _,_,_,_,_, expirationTime2, fromwho2 = UnitBuff(u, GetSpellInfo(156910))
-	local name3, _,_,_,_,_, expirationTime3, fromwho3 = UnitBuff(u, GetSpellInfo(200025))
+    local name,_,_,_,_, expirationTime, fromwho = UnitBuff(u, GetSpellInfo(53563))
+	local name2,_,_,_,_, expirationTime2, fromwho2 = UnitBuff(u, GetSpellInfo(156910))
+	local name3,_,_,_,_, expirationTime3, fromwho3 = UnitBuff(u, GetSpellInfo(200025))
 	
     if fromwho == "player" then
         return "|cffFFB90FO|r"
@@ -222,7 +222,7 @@ oUF.Tags.Methods['Mlight:forbearance'] = function(u) if UnitDebuff(u, GetSpellIn
 oUF.Tags.Events['Mlight:forbearance'] = "UNIT_AURA" -- 自律
 
 oUF.Tags.Methods['Mlight:fyxy'] = function(u) -- 赋予信仰
-    local name, _,_,_,_,_, expirationTime, fromwho = UnitAura(u, GetSpellInfo(223306))
+    local name,_,_,_,_, expirationTime, fromwho = UnitAura(u, GetSpellInfo(223306))
     if(fromwho == "player") then
         local spellTimer = (expirationTime-GetTime())
 		local TimeLeft = T.FormatTime(spellTimer)
@@ -235,7 +235,7 @@ oUF.Tags.Events['Mlight:fyxy'] = 'UNIT_AURA'
 
 -- Monk 武僧
 oUF.Tags.Methods['Mlight:jhzq'] = function(u) -- 精华之泉
-    local name, _,_,_,_,_, expirationTime, fromwho = UnitAura(u, GetSpellInfo(191840))
+    local name,_,_,_,_, expirationTime, fromwho = UnitAura(u, GetSpellInfo(191840))
     if(fromwho == "player") then
         local spellTimer = (expirationTime-GetTime())
 		local TimeLeft = T.FormatTime(spellTimer)

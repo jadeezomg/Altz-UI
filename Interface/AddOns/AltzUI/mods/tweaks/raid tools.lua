@@ -401,7 +401,7 @@ PullButton:RegisterEvent("PLAYER_LOGIN")
 PullButton:SetScript("OnClick", function()
 	if DBM then
 		local timer = aCoreCDB["RaidToolOptions"]["pulltime"] or 10
-		SendAddonMessage("D4", "PT\t"..timer, "RAID")
+		C_ChatInfo.SendAddonMessage("D4", "PT\t"..timer, "RAID")
 	end
 end)
 
@@ -430,7 +430,7 @@ end)
 LagCheckButton:RegisterEvent("PLAYER_LOGIN")
 LagCheckButton:SetScript("OnClick", function()
 	if DBM then
-		SendAddonMessage("D4", "L\t", "RAID")
+		C_ChatInfo.SendAddonMessage("D4", "L\t", "RAID")
 		DBM:AddMsg(DBM_CORE_LAG_CHECKING)
 		DBM:Schedule(5, function() DBM:ShowLag() end)
 	end

@@ -563,10 +563,10 @@ CurrencyButton.text:SetPoint("LEFT", CurrencyButton.icon, "RIGHT", 5, 0)
 CurrencyButton.text:SetTextColor(1, 1, 1)
 
 CurrencyButton:RegisterEvent("PLAYER_ENTERING_WORLD")
-CurrencyButton:RegisterEvent("WORLD_MAP_UPDATE")
+--CurrencyButton:RegisterEvent("WORLD_MAP_UPDATE")
 CurrencyButton:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 CurrencyButton:SetScript("OnEvent", function(self, event)
-	local map = GetCurrentMapAreaID()
+	local map = C_Map.GetBestMapForUnit("player")
 	local currency = Currency[map]
 	
 	if map and currency then
@@ -596,9 +596,10 @@ local Coords = T.createtext(Minimap, "OVERLAY", 12, "OUTLINE", "CENTER")
 Coords:SetPoint("CENTER", 0, 0)
 Coords:Hide()
 
+--[[
 Minimap:HookScript("OnUpdate",function()
 	if select(2, GetInstanceInfo()) == "none" then
-		local x,y=GetPlayerMapPosition("player")
+		local x,y = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player")
 		if x>0 or y>0 then
 			Coords:SetText(string.format("%d,%d",x*100,y*100));
 		else
@@ -606,6 +607,7 @@ Minimap:HookScript("OnUpdate",function()
 		end
 	end
 end)
+]]
 
 Minimap:HookScript("OnEvent",function(self,event,...)
 	if event=="ZONE_CHANGED_NEW_AREA" and not WorldMapFrame:IsShown() then
@@ -613,7 +615,7 @@ Minimap:HookScript("OnEvent",function(self,event,...)
 	end
 end)
 
-WorldMapFrame:HookScript("OnHide",SetMapToCurrentZone)
+--WorldMapFrame:HookScript("OnHide",SetMapToCurrentZone)
 Minimap:HookScript("OnEnter", function() MinimapZoneTextButton:Show() Coords:Show() end)
 Minimap:HookScript("OnLeave", function() MinimapZoneTextButton:Hide() Coords:Hide() end)
 
@@ -839,7 +841,7 @@ xpbar:SetScript("OnEvent", function(self, event, arg1)
 			repbar:Hide()
 		end
 	end
-	
+--[[	
 	if event == "PLAYER_LOGIN" or (event == "UNIT_INVENTORY_CHANGED" and arg1 == "player") or event == "ARTIFACT_XP_UPDATE" then
 		if showArtifact then
 			artifactbar:Show()
@@ -876,6 +878,7 @@ xpbar:SetScript("OnEvent", function(self, event, arg1)
 		artifactbar:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 0, 0)
 		artifactbar:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 0, 0)
 	end
+	]]
 end)
 
 xpbar:RegisterEvent("PLAYER_XP_UPDATE")

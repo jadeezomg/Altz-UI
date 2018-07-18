@@ -4,7 +4,7 @@ local F = unpack(Aurora)
 if not aCoreCDB["TooltipOptions"]["showspellID"] or not aCoreCDB["TooltipOptions"]["enabletip"] then return end
 
 hooksecurefunc(GameTooltip, "SetUnitBuff", function(self,...)
-	local id = select(11,UnitBuff(...))
+	local id = select(10,UnitBuff(...))
 	if id then
 		self:AddLine(" ")
 		self:AddDoubleLine("SpellID:",format(G.classcolor.."%s|r",id))
@@ -13,7 +13,7 @@ hooksecurefunc(GameTooltip, "SetUnitBuff", function(self,...)
 end)
 
 hooksecurefunc(GameTooltip, "SetUnitDebuff", function(self,...)
-	local id = select(11,UnitDebuff(...))
+	local id = select(10,UnitDebuff(...))
 	if id then
 		self:AddLine(" ")
 		self:AddDoubleLine("SpellID:",format(G.classcolor.."%s|r",id))
@@ -22,7 +22,7 @@ hooksecurefunc(GameTooltip, "SetUnitDebuff", function(self,...)
 end)
 
 hooksecurefunc(GameTooltip, "SetUnitAura", function(self,...)
-	local id = select(11,UnitAura(...))
+	local id = select(10,UnitAura(...))
 	if id then
 		self:AddLine(" ")
 		self:AddDoubleLine("SpellID:",format(G.classcolor.."%s|r",id))

@@ -287,7 +287,7 @@ if classresource_show then
 		ClassPowerID = SPELL_POWER_SOUL_SHARDS
 		ClassPowerType = "SOUL_SHARDS"
 	elseif(G.myClass == 'ROGUE' or G.myClass == 'DRUID') then
-		ClassPowerID = SPELL_POWER_COMBO_POINTS
+		ClassPowerID = Enum.PowerType.ComboPoints
 		ClassPowerType = "COMBO_POINTS"
 	end
 
