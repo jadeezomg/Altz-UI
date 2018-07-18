@@ -40,6 +40,7 @@ tinsert(C.themes["Aurora"], function()
 		for j = 1, 4 do
 			F.Reskin(frame["button"..j])
 		end
+		F.Reskin(frame["extraButton"])
 
 		F.ReskinClose(close)
 
@@ -57,7 +58,7 @@ tinsert(C.themes["Aurora"], function()
 		F.ReskinInput(copper)
 	end
 
-	hooksecurefunc("StaticPopup_Show", function(which, text_arg1, text_arg2, data)
+	hooksecurefunc("StaticPopup_Show", function(which, _, _, data)
 		local info = StaticPopupDialogs[which]
 
 		if not info then return end
@@ -110,4 +111,12 @@ tinsert(C.themes["Aurora"], function()
 			end
 		end
 	end)
+
+	-- Pet battle queue popup
+
+	F.CreateBD(PetBattleQueueReadyFrame)
+	F.CreateSD(PetBattleQueueReadyFrame)
+	F.CreateBG(PetBattleQueueReadyFrame.Art)
+	F.Reskin(PetBattleQueueReadyFrame.AcceptButton)
+	F.Reskin(PetBattleQueueReadyFrame.DeclineButton)
 end)

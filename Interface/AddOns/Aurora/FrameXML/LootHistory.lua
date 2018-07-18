@@ -39,12 +39,12 @@ tinsert(C.themes["Aurora"], function()
 		line2:SetSize(30, 1)
 		line2:SetPoint("TOP", 0, -3)
 
-		LootHistoryFrame.ResizeButton:HookScript("OnEnter", function(self)
+		LootHistoryFrame.ResizeButton:HookScript("OnEnter", function()
 			line1:SetVertexColor(r, g, b)
 			line2:SetVertexColor(r, g, b)
 		end)
 
-		LootHistoryFrame.ResizeButton:HookScript("OnLeave", function(self)
+		LootHistoryFrame.ResizeButton:HookScript("OnLeave", function()
 			line1:SetVertexColor(.7, .7, .7)
 			line2:SetVertexColor(.7, .7, .7)
 		end)
@@ -87,7 +87,6 @@ tinsert(C.themes["Aurora"], function()
 		end
 
 		frame.bg:SetVertexColor(frame.IconBorder:GetVertexColor())
-		frame.ToggleButton.plus:SetShown(not expanded)
 	end)
 
 	-- [[ Player frame ]]

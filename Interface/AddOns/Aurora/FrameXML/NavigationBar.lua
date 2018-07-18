@@ -45,28 +45,24 @@ tinsert(C.themes["Aurora"], function()
 
 	hooksecurefunc("NavBar_Initialize", F.ReskinNavBar)
 
-	hooksecurefunc("NavBar_AddButton", function(self, buttonData)
-		local navButton = self.navList[#self.navList]
+	hooksecurefunc("NavBar_AddButton", function(self)
+		F.ReskinNavBar(self)
 
+		local navButton = self.navList[#self.navList]
 		if not navButton.restyled then
 			F.Reskin(navButton)
-
 			navButton.arrowUp:SetAlpha(0)
 			navButton.arrowDown:SetAlpha(0)
-
 			navButton.selected:SetDrawLayer("BACKGROUND", 1)
-			navButton.selected:SetColorTexture(r, g, b, .3)
+			navButton.selected:SetColorTexture(r, g, b, .25)
 
 			navButton:HookScript("OnClick", function()
 				moveNavButtons(self)
 			end)
 
 			-- arrow button
-
 			local arrowButton = navButton.MenuArrowButton
-
 			arrowButton.Art:Hide()
-
 			arrowButton:SetHighlightTexture("")
 
 			local tex = arrowButton:CreateTexture(nil, "ARTWORK")

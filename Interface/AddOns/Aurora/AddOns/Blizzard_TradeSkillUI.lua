@@ -56,6 +56,25 @@ C.themes["Blizzard_TradeSkillUI"] = function()
 		recipe.Tabs[2].bg:SetBackdropColor(r, g, b, .2)
 	end)
 
+	hooksecurefunc(recipe, "RefreshDisplay", function(self)
+		for i = 1, #self.buttons do
+			local button = self.buttons[i]
+			if not button.styled then
+				F.ReskinExpandOrCollapse(button)
+				if button.SubSkillRankBar then
+					local bar = button.SubSkillRankBar
+					F.StripTextures(bar)
+					bar:SetStatusBarTexture(C.media.backdrop)
+					bar:SetPoint("RIGHT", -6, 0)
+					F.CreateBDFrame(bar, .25)
+				end
+
+				button.styled = true
+			end
+			button:SetHighlightTexture("")
+		end
+	end)
+
 	-- Recipe Details
 
 	local detailsInset = TradeSkillFrame.DetailsInset

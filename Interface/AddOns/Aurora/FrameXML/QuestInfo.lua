@@ -58,7 +58,7 @@ tinsert(C.themes["Aurora"], function()
 		local numVisibleObjectives = 0
 
 		for i = 1, GetNumQuestLeaderBoards() do
-			local text, type, finished = GetQuestLogLeaderBoard(i)
+			local _, type, finished = GetQuestLogLeaderBoard(i)
 
 			if (type ~= "spell" and type ~= "log" and numVisibleObjectives < MAX_OBJECTIVES) then
 				numVisibleObjectives = numVisibleObjectives + 1
@@ -115,7 +115,7 @@ tinsert(C.themes["Aurora"], function()
 
 	restyleRewardButton(QuestInfoSkillPointFrame)
 	MapQuestInfoRewardsFrame.XPFrame.Name:SetShadowOffset(0, 0)
-	for i, name in next, {"HonorFrame", "MoneyFrame", "SkillPointFrame", "XPFrame", "ArtifactXPFrame", "TitleFrame"} do
+	for _, name in next, {"HonorFrame", "MoneyFrame", "SkillPointFrame", "XPFrame", "ArtifactXPFrame", "TitleFrame"} do
 		restyleRewardButton(MapQuestInfoRewardsFrame[name], true)
 	end
 
@@ -152,7 +152,7 @@ tinsert(C.themes["Aurora"], function()
 
 	-- [[ Change text colours ]]
 
-	hooksecurefunc(QuestInfoRequiredMoneyText, "SetTextColor", function(self, r, g, b)
+	hooksecurefunc(QuestInfoRequiredMoneyText, "SetTextColor", function(self, r)
 		if r == 0 then
 			self:SetTextColor(.8, .8, .8)
 		elseif r == .2 then
@@ -205,4 +205,6 @@ tinsert(C.themes["Aurora"], function()
 
 	QuestInfoRewardsFrame.spellHeaderPool:Acquire():SetVertexColor(1, 1, 1)
 	QuestInfoRewardsFrame.spellHeaderPool:Acquire().SetVertexColor = F.dummy
+
+	QuestFont:SetTextColor(1, 1, 1)
 end)

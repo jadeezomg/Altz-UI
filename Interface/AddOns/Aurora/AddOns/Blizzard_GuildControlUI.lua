@@ -14,9 +14,8 @@ C.themes["Blizzard_GuildControlUI"] = function()
 		select(i, GuildControlUIRankBankFrameInset:GetRegions()):Hide()
 	end
 
-	GuildControlUIRankSettingsFrameChatBg:SetAlpha(0)
+	GuildControlUIRankSettingsFrameOfficerBg:SetAlpha(0)
 	GuildControlUIRankSettingsFrameRosterBg:SetAlpha(0)
-	GuildControlUIRankSettingsFrameInfoBg:SetAlpha(0)
 	GuildControlUIRankSettingsFrameBankBg:SetAlpha(0)
 	GuildControlUITopBg:Hide()
 	GuildControlUIHbar:Hide()
@@ -84,29 +83,9 @@ C.themes["Blizzard_GuildControlUI"] = function()
 					tex:SetPoint("TOPLEFT", 5, -5)
 					tex:SetPoint("BOTTOMRIGHT", -5, 5)
 
-					local left = ch:CreateTexture(nil, "BACKGROUND")
-					left:SetWidth(1)
-					left:SetColorTexture(0, 0, 0)
-					left:SetPoint("TOPLEFT", tex, -1, 1)
-					left:SetPoint("BOTTOMLEFT", tex, -1, -1)
-
-					local right = ch:CreateTexture(nil, "BACKGROUND")
-					right:SetWidth(1)
-					right:SetColorTexture(0, 0, 0)
-					right:SetPoint("TOPRIGHT", tex, 1, 1)
-					right:SetPoint("BOTTOMRIGHT", tex, 1, -1)
-
-					local top = ch:CreateTexture(nil, "BACKGROUND")
-					top:SetHeight(1)
-					top:SetColorTexture(0, 0, 0)
-					top:SetPoint("TOPLEFT", tex, -1, 1)
-					top:SetPoint("TOPRIGHT", tex, 1, 1)
-
-					local bottom = ch:CreateTexture(nil, "BACKGROUND")
-					bottom:SetHeight(1)
-					bottom:SetColorTexture(0, 0, 0)
-					bottom:SetPoint("BOTTOMLEFT", tex, -1, -1)
-					bottom:SetPoint("BOTTOMRIGHT", tex, 1, -1)
+					local bg = F.CreateBDFrame(ch, 1)
+					bg:SetPoint("TOPLEFT", tex, -1, 1)
+					bg:SetPoint("BOTTOMRIGHT", tex, 1, -1)
 				end
 
 				bu.styled = true
@@ -114,9 +93,11 @@ C.themes["Blizzard_GuildControlUI"] = function()
 		end
 	end)
 
+	F.ReskinCheck(GuildControlUIRankSettingsFrameOfficerCheckbox)
 	for i = 1, 20 do
-		if i ~= 14 then
-			F.ReskinCheck(_G["GuildControlUIRankSettingsFrameCheckbox"..i])
+		local checbox = _G["GuildControlUIRankSettingsFrameCheckbox"..i]
+		if checbox then
+			F.ReskinCheck(checbox)
 		end
 	end
 

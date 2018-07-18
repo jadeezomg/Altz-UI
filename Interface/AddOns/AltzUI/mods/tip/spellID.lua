@@ -50,14 +50,14 @@ eventframe:SetScript("OnEvent", function(self, event, addon)
 				bu.nospellid = true
 			end
 		end
-		
+--[[	
 		for i = 1, 6 do
 			for j = 1, 3 do
 				local pvpbu = PlayerTalentFramePVPTalents.Talents["Tier"..i]["Talent"..j]
 				pvpbu.nospellid = true
 			end
 		end
-		
+]]			
 	end
 end)
 

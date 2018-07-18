@@ -8,42 +8,59 @@ tinsert(C.themes["Aurora"], function()
 	-- [[ Quest scroll frame ]]
 
 	local QuestScrollFrame = QuestScrollFrame
+	local campaignHeader = QuestScrollFrame.Contents.WarCampaignHeader
 	local StoryHeader = QuestScrollFrame.Contents.StoryHeader
 
 	QuestMapFrame.VerticalSeparator:SetAlpha(0)
 	QuestScrollFrame.Background:SetAlpha(0)
+	QuestScrollFrame.DetailFrame.TopDetail:SetAlpha(0)
+	QuestScrollFrame.DetailFrame.BottomDetail:SetAlpha(0)
+	QuestScrollFrame.Contents.Separator:SetAlpha(0)
 
 	if AuroraConfig.tooltips then
 		F.CreateBD(QuestScrollFrame.StoryTooltip)
+		F.CreateBD(QuestScrollFrame.WarCampaignTooltip)
 	end
 	F.ReskinScroll(QuestScrollFrame.ScrollBar)
 
-	-- Story header
+	for _, header in next, {campaignHeader, StoryHeader} do
+		header.Background:SetAlpha(0)
+		header.HighlightTexture:Hide()
 
-	StoryHeader.Background:SetAlpha(0)
-	StoryHeader.Shadow:SetAlpha(0)
-
-	do
-		local bg = F.CreateBDFrame(StoryHeader, .25)
+		local bg = F.CreateBDFrame(header, .25)
 		bg:SetPoint("TOPLEFT", 0, -1)
 		bg:SetPoint("BOTTOMRIGHT", -4, 0)
+		if header == campaignHeader then
+			local newTex = bg:CreateTexture(nil, "OVERLAY")
+			newTex:SetPoint("TOPRIGHT", -20, -5)
+			newTex:SetSize(50, 50)
+			newTex:SetBlendMode("ADD")
+			newTex:SetAlpha(0)
+			header.newTex = newTex
+		end
 
-		local hl = StoryHeader.HighlightTexture
-
-		hl:SetTexture(C.media.backdrop)
-		hl:SetVertexColor(r, g, b, .2)
-		hl:SetPoint("TOPLEFT", 1, -2)
-		hl:SetPoint("BOTTOMRIGHT", -5, 1)
-		hl:SetDrawLayer("BACKGROUND")
-		hl:Hide()
-
-		StoryHeader:HookScript("OnEnter", function()
-			hl:Show()
+		header:HookScript("OnEnter", function()
+			bg:SetBackdropColor(r, g, b, .25)
 		end)
-
-		StoryHeader:HookScript("OnLeave", function()
-			hl:Hide(0)
+		header:HookScript("OnLeave", function()
+			bg:SetBackdropColor(0, 0, 0, .25)
 		end)
+	end
+
+	local idToTexture = {
+		[261] = "Interface\\FriendsFrame\\PlusManz-Alliance",
+		[262] = "Interface\\FriendsFrame\\PlusManz-Horde",
+	}
+	local function UpdateCampaignHeader()
+		campaignHeader.newTex:SetAlpha(0)
+		if campaignHeader:IsShown() then
+			local warCampaignInfo = C_CampaignInfo.GetCampaignInfo(C_CampaignInfo.GetCurrentCampaignID())
+			local textureID = warCampaignInfo.uiTextureKitID
+			if textureID and idToTexture[textureID] then
+				campaignHeader.newTex:SetTexture(idToTexture[textureID])
+				campaignHeader.newTex:SetAlpha(.7)
+			end
+		end
 	end
 
 	-- [[ Quest details ]]
@@ -52,9 +69,7 @@ tinsert(C.themes["Aurora"], function()
 	local RewardsFrame = DetailsFrame.RewardsFrame
 	local CompleteQuestFrame = DetailsFrame.CompleteQuestFrame
 
-	DetailsFrame:GetRegions():SetAlpha(0)
-	select(2, DetailsFrame:GetRegions()):SetAlpha(0)
-	select(3, DetailsFrame:GetRegions()):SetAlpha(0)
+	F.StripTextures(DetailsFrame)
 	select(6, DetailsFrame.ShareButton:GetRegions()):SetAlpha(0)
 	select(7, DetailsFrame.ShareButton:GetRegions()):SetAlpha(0)
 	DetailsFrame.SealMaterialBG:SetAlpha(0)
@@ -63,6 +78,7 @@ tinsert(C.themes["Aurora"], function()
 	F.Reskin(DetailsFrame.AbandonButton)
 	F.Reskin(DetailsFrame.ShareButton)
 	F.Reskin(DetailsFrame.TrackButton)
+	F.ReskinScroll(QuestMapDetailsScrollFrameScrollBar)
 
 	DetailsFrame.AbandonButton:ClearAllPoints()
 	DetailsFrame.AbandonButton:SetPoint("BOTTOMLEFT", DetailsFrame, -1, 0)
@@ -83,7 +99,20 @@ tinsert(C.themes["Aurora"], function()
 
 	-- Scroll frame
 
-	F.ReskinScroll(DetailsFrame.ScrollFrame.ScrollBar)
+	hooksecurefunc("QuestLogQuests_Update", function()
+		UpdateCampaignHeader()
+
+		for i = 6, QuestMapFrame.QuestsFrame.Contents:GetNumChildren() do
+			local child = select(i, QuestMapFrame.QuestsFrame.Contents:GetChildren())
+			if child.ButtonText then
+				if not child.styled then
+					F.ReskinExpandOrCollapse(child)
+					child.styled = true
+				end
+				child:SetHighlightTexture("")
+			end
+		end
+	end)
 
 	-- Complete quest frame
 	CompleteQuestFrame:GetRegions():SetAlpha(0)

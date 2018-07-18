@@ -34,8 +34,8 @@ do
 			self.classStrings[i]:SetFormattedText("|c%s%s|r\n", color.colorStr, LOCALIZED_CLASS_NAMES_MALE[class])
 		end
 	end
-	ChatConfigChatSettingsClassColorLegend:HookScript("OnShow", ColorLegend)
-	ChatConfigChannelSettingsClassColorLegend:HookScript("OnShow", ColorLegend)
+--	ChatConfigChatSettingsClassColorLegend:HookScript("OnShow", ColorLegend)
+--	ChatConfigChannelSettingsClassColorLegend:HookScript("OnShow", ColorLegend)
 end
 
 ------------------------------------------------------------------------

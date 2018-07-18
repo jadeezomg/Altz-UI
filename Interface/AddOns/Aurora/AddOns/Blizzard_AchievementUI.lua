@@ -133,30 +133,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 		local tex = F.CreateGradient(ch)
 		tex:SetPoint("TOPLEFT", 4, -4)
 		tex:SetPoint("BOTTOMRIGHT", -4, 4)
-
-		local left = ch:CreateTexture(nil, "BACKGROUND")
-		left:SetWidth(1)
-		left:SetColorTexture(0, 0, 0)
-		left:SetPoint("TOPLEFT", tex, -1, 1)
-		left:SetPoint("BOTTOMLEFT", tex, -1, -1)
-
-		local right = ch:CreateTexture(nil, "BACKGROUND")
-		right:SetWidth(1)
-		right:SetColorTexture(0, 0, 0)
-		right:SetPoint("TOPRIGHT", tex, 1, 1)
-		right:SetPoint("BOTTOMRIGHT", tex, 1, -1)
-
-		local top = ch:CreateTexture(nil, "BACKGROUND")
-		top:SetHeight(1)
-		top:SetColorTexture(0, 0, 0)
-		top:SetPoint("TOPLEFT", tex, -1, 1)
-		top:SetPoint("TOPRIGHT", tex, 1, -1)
-
-		local bottom = ch:CreateTexture(nil, "BACKGROUND")
-		bottom:SetHeight(1)
-		bottom:SetColorTexture(0, 0, 0)
-		bottom:SetPoint("BOTTOMLEFT", tex, -1, -1)
-		bottom:SetPoint("BOTTOMRIGHT", tex, 1, -1)
+		F.CreateBDFrame(tex)
 	end
 
 	AchievementFrameAchievementsContainerButton1.background:SetPoint("TOPLEFT", AchievementFrameAchievementsContainerButton1, "TOPLEFT", 2, -3)
@@ -178,7 +155,7 @@ C.themes["Blizzard_AchievementUI"] = function()
 		end
 	end)
 
-	hooksecurefunc("AchievementObjectives_DisplayCriteria", function(objectivesFrame, id)
+	hooksecurefunc("AchievementObjectives_DisplayCriteria", function(_, id)
 		for i = 1, GetAchievementNumCriteria(id) do
 			local name = _G["AchievementFrameCriteria"..i.."Name"]
 			if name and select(2, name:GetTextColor()) == 0 then
@@ -259,7 +236,6 @@ C.themes["Blizzard_AchievementUI"] = function()
 
 	for i = 1, 12 do
 		local bu = _G["AchievementFrameSummaryCategoriesCategory"..i]
-		local bar = bu:GetStatusBarTexture()
 		local label = _G["AchievementFrameSummaryCategoriesCategory"..i.."Label"]
 
 		_G["AchievementFrameSummaryCategoriesCategory"..i.."Left"]:Hide()
@@ -289,13 +265,14 @@ C.themes["Blizzard_AchievementUI"] = function()
 		_G[bu]:GetHighlightTexture():SetBlendMode("BLEND")
 	end
 
-	AchievementFrameComparisonHeader:SetPoint("BOTTOMRIGHT", AchievementFrameComparison, "TOPRIGHT", 39, 25)
+	AchievementFrameComparisonHeader:SetPoint("BOTTOMRIGHT", AchievementFrameComparison, "TOPRIGHT", 39, 26)
 
 	local headerbg = CreateFrame("Frame", nil, AchievementFrameComparisonHeader)
 	headerbg:SetPoint("TOPLEFT", 20, -20)
 	headerbg:SetPoint("BOTTOMRIGHT", -28, -5)
 	headerbg:SetFrameLevel(AchievementFrameComparisonHeader:GetFrameLevel()-1)
-	F.CreateBD(headerbg, .25)
+	F.CreateBD(headerbg)
+	F.CreateSD(headerbg)
 
 	local summaries = {AchievementFrameComparisonSummaryPlayer, AchievementFrameComparisonSummaryFriend}
 

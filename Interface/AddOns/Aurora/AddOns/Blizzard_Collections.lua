@@ -199,9 +199,9 @@ C.themes["Blizzard_Collections"] = function()
 	F.CreateBG(MountJournalSummonRandomFavoriteButton)
 
 	do
-		local movedButton = false
+		local movedButton
 		MountJournal:HookScript("OnShow", function()
-			if not InCombatLockdown() then
+			if not InCombatLockdown() and not movedButton then
 				MountJournalSummonRandomFavoriteButton:SetPoint("TOPRIGHT", -7, -32)
 				movedButton = true
 			end
@@ -409,7 +409,9 @@ C.themes["Blizzard_Collections"] = function()
 		bu.slotFrameUncollected:SetTexture("")
 
 		ic:SetTexCoord(.08, .92, .08, .92)
-		F.CreateBG(ic)
+		local bg = F.CreateBG(bu)
+		bg:SetPoint("TOPLEFT", 2.8, -1.8)
+		bg:SetPoint("BOTTOMRIGHT", -2.8, 3.8)
 
 		hooksecurefunc(bu.name, "SetTextColor", changeTextColor)
 	end
@@ -431,7 +433,7 @@ C.themes["Blizzard_Collections"] = function()
 	F.ReskinArrow(HeirloomsJournal.PagingFrame.PrevPageButton, "left")
 	F.ReskinArrow(HeirloomsJournal.PagingFrame.NextPageButton, "right")
 
-	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(self, button)
+	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
 		button.level:SetFontObject("GameFontWhiteSmall")
 		button.special:SetTextColor(1, .8, 0)
 	end)
@@ -512,9 +514,10 @@ C.themes["Blizzard_Collections"] = function()
 
 	-- [[ WardrobeCollectionFrame ]]
 
-	for i = 1, 35 do
-		select(i, WardrobeCollectionFrame.ItemsCollectionFrame:GetRegions()):Hide()
-	end
+	local WardrobeCollectionFrame = WardrobeCollectionFrame
+	local ItemsCollectionFrame = WardrobeCollectionFrame.ItemsCollectionFrame
+
+	F.StripTextures(ItemsCollectionFrame)
 	F.ReskinFilterButton(WardrobeCollectionFrame.FilterButton)
 	F.ReskinDropDown(WardrobeCollectionFrameWeaponDropDown)
 	F.ReskinInput(WardrobeCollectionFrameSearchBox)
@@ -529,6 +532,7 @@ C.themes["Blizzard_Collections"] = function()
 		tab.bg:SetPoint("TOPLEFT", 3, -3)
 		tab.bg:SetPoint("BOTTOMRIGHT", -3, -1)
 	end
+
 	hooksecurefunc("WardrobeCollectionFrame_SetTab", function(tabID)
 		for index = 1, 2 do
 			local tab = _G["WardrobeCollectionFrameTab"..index]
@@ -540,10 +544,10 @@ C.themes["Blizzard_Collections"] = function()
 		end
 	end)
 
-	F.ReskinArrow(WardrobeCollectionFrame.ItemsCollectionFrame.PagingFrame.PrevPageButton, "left")
-	F.ReskinArrow(WardrobeCollectionFrame.ItemsCollectionFrame.PagingFrame.NextPageButton, "right")
-	WardrobeCollectionFrame.ItemsCollectionFrame.BGCornerTopLeft:SetAlpha(0)
-	WardrobeCollectionFrame.ItemsCollectionFrame.BGCornerTopRight:SetAlpha(0)
+	F.ReskinArrow(ItemsCollectionFrame.PagingFrame.PrevPageButton, "left")
+	F.ReskinArrow(ItemsCollectionFrame.PagingFrame.NextPageButton, "right")
+	ItemsCollectionFrame.BGCornerTopLeft:SetAlpha(0)
+	ItemsCollectionFrame.BGCornerTopRight:SetAlpha(0)
 
 	local progressBar = WardrobeCollectionFrame.progressBar
 	progressBar:DisableDrawLayer("BACKGROUND")
@@ -580,7 +584,7 @@ C.themes["Blizzard_Collections"] = function()
 	DetailsFrame.IconRowBackground:Hide()
 	F.ReskinFilterButton(DetailsFrame.VariantSetsButton, "Down")
 
-	hooksecurefunc(SetsCollectionFrame, "SetItemFrameQuality", function(self, itemFrame)
+	hooksecurefunc(SetsCollectionFrame, "SetItemFrameQuality", function(_, itemFrame)
 		local ic = itemFrame.Icon
 		if not itemFrame.styled then
 			ic:SetTexCoord(.08, .92, .08, .92)
@@ -706,12 +710,12 @@ do
 			HPetOption:HookScript("OnShow", function(self)
 				if not self.reskin then
 					local bu = {"Reset", "Help", "UpdateStone"}
-					for k, v in pairs(bu) do
+					for _, v in pairs(bu) do
 						F.Reskin(_G["HPetOption"..v])
 					end
 
 					local box = {"Message", "OnlyInPetInfo", "MiniTip", "Sound", "FastForfeit", "OtherTooltip", "HighGlow", "AutoSaveAbility", "ShowBandageButton", "ShowHideID", "PetGrowInfo", "BreedIDStyle", "PetGreedInfo", "PetBreedInfo", "ShowBreedID", "EnemyAbility", "LockAbilitys", "ShowAbilitysName", "OtherAbility", "AllyAbility"}
-					for k, v in pairs(box) do
+					for _, v in pairs(box) do
 						F.ReskinCheck(_G["HPetOption"..v])
 					end
 					F.ReskinSlider(_G["HPetOptionAbilitysScale"])

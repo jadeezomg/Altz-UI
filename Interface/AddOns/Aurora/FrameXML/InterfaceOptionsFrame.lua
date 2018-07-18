@@ -73,6 +73,7 @@ tinsert(C.themes["Aurora"], function()
 			"InterfaceOptionsActionBarsPanelBottomRight",
 			"InterfaceOptionsActionBarsPanelRight",
 			"InterfaceOptionsActionBarsPanelRightTwo",
+			"InterfaceOptionsActionBarsPanelStackRightBars",
 			"InterfaceOptionsActionBarsPanelLockActionBars",
 			"InterfaceOptionsActionBarsPanelAlwaysShowActionBars",
 			"InterfaceOptionsActionBarsPanelCountdownCooldowns",
@@ -96,6 +97,7 @@ tinsert(C.themes["Aurora"], function()
 			"InterfaceOptionsMousePanelInvertMouse",
 			"InterfaceOptionsMousePanelEnableMouseSpeed",
 			"InterfaceOptionsMousePanelClickToMove",
+			"InterfaceOptionsMousePanelLockCursorToScreen",
 			"InterfaceOptionsAccessibilityPanelMovePad",
 			"InterfaceOptionsAccessibilityPanelCinematicSubtitles",
 			"InterfaceOptionsAccessibilityPanelColorblindMode"
@@ -195,14 +197,6 @@ tinsert(C.themes["Aurora"], function()
 				bu.SetPushedTexture = F.dummy
 				bu.reskinned = true
 			end
-		end
-	end)
-
-	hooksecurefunc("OptionsListButtonToggle_OnClick", function(self)
-		if self:GetParent().element.collapsed then
-			self.plus:Show()
-		else
-			self.plus:Hide()
 		end
 	end)
 end)

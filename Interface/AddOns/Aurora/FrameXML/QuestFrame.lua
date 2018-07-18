@@ -70,7 +70,7 @@ tinsert(C.themes["Aurora"], function()
 
 	QuestDetailScrollFrame:SetWidth(302) -- else these buttons get cut off
 
-	hooksecurefunc(QuestProgressRequiredMoneyText, "SetTextColor", function(self, r, g, b)
+	hooksecurefunc(QuestProgressRequiredMoneyText, "SetTextColor", function(self, r)
 		if r == 0 then
 			self:SetTextColor(.8, .8, .8)
 		elseif r == .2 then
@@ -128,7 +128,7 @@ tinsert(C.themes["Aurora"], function()
 	npcLine:SetFrameLevel(0)
 	F.CreateBD(npcLine, 0)
 
-	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(parentFrame, _, _, _, x, y)
+	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(parentFrame, _, _, _, _, x, y)
 		if parentFrame == QuestLogPopupDetailFrame or parentFrame == QuestFrame then
 			x = x + 3
 		end

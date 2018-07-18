@@ -1,3 +1,0 @@
-local _, private = ...
-
-private.CreateAPI = nil

@@ -26,6 +26,26 @@ tinsert(C.themes["Aurora"], function()
 		self.arrow:SetVertexColor(1, 1, 1)
 	end
 
+	local function UpdateAzeriteItem(self)
+		if not self.styled then
+			self.AzeriteTexture:SetAlpha(0)
+			self.RankFrame.Texture:SetTexture("")
+			self.RankFrame.Label:ClearAllPoints()
+			self.RankFrame.Label:SetPoint("TOPLEFT", self, 2, -1)
+			self.RankFrame.Label:SetTextColor(1, .5, 0)
+
+			self.styled = true
+		end
+		self:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+		self:GetHighlightTexture():SetAllPoints()
+	end
+
+	local function UpdateAzeriteEmpoweredItem(self)
+		self.AzeriteTexture:SetAtlas("AzeriteIconFrame")
+		self.AzeriteTexture:SetAllPoints()
+		self.AzeriteTexture:SetDrawLayer("BORDER", 1)
+	end
+
 	local slots = {
 		"Head", "Neck", "Shoulder", "Shirt", "Chest", "Waist", "Legs", "Feet", "Wrist",
 		"Hands", "Finger0", "Finger1", "Trinket0", "Trinket1", "Back", "MainHand",
@@ -41,19 +61,19 @@ tinsert(C.themes["Aurora"], function()
 		slot:SetNormalTexture("")
 		slot:SetPushedTexture("")
 		slot:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+		slot.SetHighlightTexture = F.dummy
 		slot.icon:SetTexCoord(.08, .92, .08, .92)
 
 		border:SetPoint("TOPLEFT", -1.2, 1.2)
 		border:SetPoint("BOTTOMRIGHT", 1.2, -1.2)
 		border:SetDrawLayer("BACKGROUND")
 		F.CreateBDFrame(slot, .25)
-		local popout = slot.popoutButton
 
+		local popout = slot.popoutButton
 		popout:SetNormalTexture("")
 		popout:SetHighlightTexture("")
 
 		local arrow = popout:CreateTexture(nil, "OVERLAY")
-
 		if slot.verticalFlyout then
 			arrow:SetSize(13, 8)
 			arrow:SetTexture(C.media.arrowDown)
@@ -63,15 +83,17 @@ tinsert(C.themes["Aurora"], function()
 			arrow:SetTexture(C.media.arrowRight)
 			arrow:SetPoint("LEFT", slot, "RIGHT", -1, 0)
 		end
-
 		popout.arrow = arrow
 
 		popout:HookScript("OnEnter", clearPopout)
 		popout:HookScript("OnLeave", colourPopout)
+
+		hooksecurefunc(slot, "DisplayAsAzeriteItem", UpdateAzeriteItem)
+		hooksecurefunc(slot, "DisplayAsAzeriteEmpoweredItem", UpdateAzeriteEmpoweredItem)
 	end
 
-	select(11, CharacterMainHandSlot:GetRegions()):Hide()
-	select(11, CharacterSecondaryHandSlot:GetRegions()):Hide()
+	select(13, CharacterMainHandSlot:GetRegions()):Hide()
+	select(13, CharacterSecondaryHandSlot:GetRegions()):Hide()
 
 	hooksecurefunc("PaperDollItemSlotButton_Update", function(button)
 		-- also fires for bag slots, we don't want that
@@ -87,7 +109,7 @@ tinsert(C.themes["Aurora"], function()
 	local pane = CharacterStatsPane
 	pane.ClassBackground:Hide()
 	local category = {pane.ItemLevelCategory, pane.AttributesCategory, pane.EnhancementsCategory}
-	for k, v in pairs(category) do
+	for _, v in pairs(category) do
 		v.Background:Hide()
 		F.CreateGradient(v)
 		F.CreateBD(v, 0)
@@ -147,6 +169,13 @@ tinsert(C.themes["Aurora"], function()
 	F.Reskin(GearManagerDialogPopupOkay)
 	F.Reskin(GearManagerDialogPopupCancel)
 	F.ReskinInput(GearManagerDialogPopupEditBox)
+	F.ReskinScroll(PaperDollTitlesPaneScrollBar)
+	F.ReskinScroll(PaperDollEquipmentManagerPaneScrollBar)
+	PaperDollSidebarTabs:GetRegions():Hide()
+	select(2, PaperDollSidebarTabs:GetRegions()):Hide()
+	select(6, PaperDollEquipmentManagerPaneEquipSet:GetRegions()):Hide()
+	F.Reskin(PaperDollEquipmentManagerPaneEquipSet)
+	F.Reskin(PaperDollEquipmentManagerPaneSaveSet)
 
 	for i = 1, NUM_GEARSET_ICONS_SHOWN do
 		local bu = _G["GearManagerDialogPopupButton"..i]
@@ -186,4 +215,36 @@ tinsert(C.themes["Aurora"], function()
 			sets = true
 		end
 	end)
+
+	local titles = false
+	hooksecurefunc("PaperDollTitlesPane_Update", function()
+		if titles == false then
+			for i = 1, 17 do
+				_G["PaperDollTitlesPaneButton"..i]:DisableDrawLayer("BACKGROUND")
+			end
+			titles = true
+		end
+	end)
+
+	hooksecurefunc("PaperDollFrame_SetLevel", function()
+		local primaryTalentTree = GetSpecialization()
+		local classDisplayName, class = UnitClass("player")
+		local classColor = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or C.classcolours[class]
+		local classColorString = format("ff%.2x%.2x%.2x", classColor.r * 255, classColor.g * 255, classColor.b * 255)
+		local specName, _
+
+		if primaryTalentTree then
+			_, specName = GetSpecializationInfo(primaryTalentTree, nil, nil, nil, UnitSex("player"))
+		end
+
+		if specName and specName ~= "" then
+			CharacterLevelText:SetFormattedText(PLAYER_LEVEL, UnitLevel("player"), classColorString, specName, classDisplayName)
+		else
+			CharacterLevelText:SetFormattedText(PLAYER_LEVEL_NO_SPEC, UnitLevel("player"), classColorString, classDisplayName)
+		end
+	end)
+
+	PaperDollEquipmentManagerPaneEquipSet:SetWidth(PaperDollEquipmentManagerPaneEquipSet:GetWidth()-1)
+	PaperDollEquipmentManagerPaneSaveSet:SetPoint("LEFT", PaperDollEquipmentManagerPaneEquipSet, "RIGHT", 1, 0)
+	GearManagerDialogPopup:SetPoint("LEFT", PaperDollFrame, "RIGHT", 1, 0)
 end)
