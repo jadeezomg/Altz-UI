@@ -1,7 +1,8 @@
 # Altz-UI
 Altz UI is a minimalistic compilation with in-game configuration supported.
 
-#####Attention#####
+#####ATTENTION UNOFFICIAL BUILD#####
+
 BfA 8.0.1 "fixed" version
 
 lots of broken features disabled, only fixed essentials!
