@@ -480,15 +480,15 @@ function eventframe:LFG_UPDATE_RANDOM_INFO()
 end
 
 --[[-----------------------------------------------------------------------------
-LFG Auto Accept Proposal
-
+WorldMapCoords
+]]--
 if croods then
-	WorldMapButton.coordText = WorldMapFrameCloseButton:CreateFontString(nil, "OVERLAY", "GameFontGreen") 
-	WorldMapButton.coordText:SetPoint("BOTTOM", WorldMapScrollFrame, "BOTTOM", 0, 6)
+	WorldMapFrame.coordText = WorldMapFrameCloseButton:CreateFontString(nil, "OVERLAY", "GameFontGreen") 
+	WorldMapFrame.coordText:SetPoint("CENTER", WorldMapScrollFrame, "CENTER", -220, 465)
 
-	WorldMapButton:HookScript("OnUpdate", function(self)
+	WorldMapFrame:HookScript("OnUpdate", function(self)
 	    if select(2, GetInstanceInfo()) == "none" then
-		   local px, py = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"),"player")
+		   local px, py = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"),"player"):GetXY()
 		   local x, y = GetCursorPosition() 
 		   local width, height, scale = self:GetWidth(), self:GetHeight(), self:GetEffectiveScale() 
 		   local centerX, centerY = self:GetCenter() 
@@ -505,11 +505,15 @@ if croods then
 	    end
 	end) 
 end
--------------------------------------------------------------------------------]]
+
+
+--local x, y = WorldMapFrame.ScrollContainer:GetNormalizedCursorPosition()
+
+
 --[[-----------------------------------------------------------------------------
-LFG Auto Accept Proposal
+LFG Auto Accept Proposal 
 -------------------------------------------------------------------------------]]
---[[
+
 if autoacceptproposal then
 	eventframe:RegisterEvent("LFG_PROPOSAL_SHOW")
 end
@@ -521,4 +525,3 @@ function eventframe:LFG_PROPOSAL_SHOW()
 		end
 	end)
 end
-]]--
