@@ -6,7 +6,7 @@ tinsert(C.themes["Aurora"], function()
 
 	if AuroraConfig.enableFont then
 		local locale = GetLocale()
-		local font = C.media.font
+		local font = "Interface\\AddOns\\Aurora\\media\\font.ttf"
 
 		RaidWarningFrame.slot1:SetFont(font, 20, "OUTLINE")
 		RaidWarningFrame.slot2:SetFont(font, 20, "OUTLINE")
