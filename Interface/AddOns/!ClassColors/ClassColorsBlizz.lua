@@ -435,7 +435,7 @@ addonFuncs["Blizzard_ChallengesUI"] = function()
 	local _G = _G
 	local ChallengesFrame, GameTooltip = ChallengesFrame, GameTooltip
 	local GetChallengeBestTimeInfo, GetChallengeBestTimeNum, GetSpecializationInfoByID = GetChallengeBestTimeInfo, GetChallengeBestTimeNum, GetSpecializationInfoByID
-	
+	--[[
 	hooksecurefunc("ChallengesFrame_Update", function()
 		for i = 1, 4 do
 			local bu = select(i, ChallengesFrame.GuildBest:GetChildren())	
@@ -467,6 +467,7 @@ addonFuncs["Blizzard_ChallengesUI"] = function()
 			end
 		end
 	end)
+	]]
 
 	--[[
 	GuildBest:SetScript("OnEnter", function(self)
@@ -495,7 +496,7 @@ end
 
 ------------------------------------------------------------------------
 -- Blizzard_HeirloomCollection.lua
-
+--[[
 addonFuncs["Blizzard_Collections"] = function()
 	local NO_CLASS_FILTER = 0
 	local NO_SPEC_FILTER = 0
@@ -518,7 +519,7 @@ addonFuncs["Blizzard_Collections"] = function()
 		UIDropDownMenu_SetText(self.classDropDown, text)
     end
 end
-
+]]
 ------------------------------------------------------------------------
 --	Blizzard_GuildRoster.lua
 

@@ -57,7 +57,7 @@ Stats:SetAllPoints(Stats.text)
 local flasked, unflasked, fed, unfed, OoR = {}, {}, {}, {}, {}
 local prepotion, potion, noprepotion, nopotion = {}, {}, {}, {}
 local numflask, numfood, numoor, rosterflask, rosterfood, rosteroor
-
+--[[
 local function UpdateFlasked()
 	table.wipe(flasked)
 	table.wipe(unflasked)
@@ -103,6 +103,8 @@ local function UpdateFed()
 		end
 	end
 end
+]]
+
 
 local function UpdateOoR()
 	table.wipe(OoR)
@@ -118,7 +120,9 @@ local function UpdateOoR()
 	end
 end
 
+
 local function UpdateStats()
+--[[
 	UpdateFlasked()
 	local raidflasked = #flasked/(#flasked+#unflasked)
 	if raidflasked > .5 then
@@ -156,7 +160,8 @@ local function UpdateStats()
 			rosterfood = "|cffA6FFFF"..L["食物"]..":|r \n"..table.concat(fed, ", ")
 		end
 	end
-	
+
+]]	
 	UpdateOoR()
 	numoor = "|cffA6FFFF"..#OoR.." |r"..L["过远"]
 	if #OoR == 0 then
@@ -164,9 +169,10 @@ local function UpdateStats()
 	else
 		rosteroor = "|cffA6FFFF"..L["距离过远"]..":|r \n"..table.concat(OoR, ", ")
 	end
-	
-	Stats.text:SetText(numflask.."  "..numfood.."  "..numoor)
+
+--	Stats.text:SetText(numflask.."  "..numfood.."  "..numoor)
 end
+
 
 local function UpdateStatsToolTip()
 	GameTooltip:SetOwner(Stats, "ANCHOR_NONE")

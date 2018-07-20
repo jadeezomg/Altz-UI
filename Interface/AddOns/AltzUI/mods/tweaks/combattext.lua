@@ -21,6 +21,8 @@ local fadetime = aCoreCDB["CombattextOptions"]["ctfadetime"]
 
 local frames = {}
 
+local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
+
 local dmgcolor = {}
 dmgcolor[1]  = {  1,  1,  0 }  -- physical
 dmgcolor[2]  = {  1, .9, .5 }  -- holy
@@ -57,7 +59,7 @@ local GetSpellTextureFormatted = function(spellID, iconSize)
 		if icon then
 			msg = " \124T"..icon..":"..iconSize..":"..iconSize..":0:0:64:64:5:59:5:59\124t"
 		else
-			msg = " \124T"..ct.blank..":"..iconSize..":"..iconSize..":0:0:64:64:5:59:5:59\124t"
+			msg = " \124T"..iconSize..":"..iconSize..":0:0:64:64:5:59:5:59\124t"
 		end
 	end
 	return msg
@@ -104,23 +106,23 @@ local function CreateCTFrame(i, movingname, justify, a1, parent, a2, x, y)
 end
 
 local tbl = {
-	["DAMAGE"] = 			{frame = "damagetaken", prefix =  "-", 		arg2 = true, 	r = 1, 		g = 0.1, 	b = 0.1},
-	["DAMAGE_CRIT"] = 		{frame = "damagetaken", prefix = "c-", 		arg2 = true, 	r = 1, 		g = 0.1, 	b = 0.1},
-	["SPELL_DAMAGE"] = 		{frame = "damagetaken", prefix =  "-", 		arg2 = true, 	r = 0.79, 	g = 0.3, 	b = 0.85},
-	["SPELL_DAMAGE_CRIT"] = {frame = "damagetaken", prefix = "c-", 		arg2 = true, 	r = 0.79, 	g = 0.3, 	b = 0.85},
-	["HEAL"] = 				{frame = "healingtaken", prefix =  "+", 		arg3 = true, 	r = 0.1, 	g = 1, 		b = 0.1},
-	["HEAL_CRIT"] = 		{frame = "healingtaken", prefix = "c+", 		arg3 = true, 	r = 0.1, 	g = 1, 		b = 0.1},
-	["PERIODIC_HEAL"] = 	{frame = "healingtaken", prefix =  "+", 		arg3 = true, 	r = 0.1, 	g = 1, 		b = 0.1},
-	["MISS"] = 				{frame = "damagetaken", prefix = "Miss", 					r = 1, 		g = 0.1, 	b = 0.1},
-	["SPELL_MISS"] = 		{frame = "damagetaken", prefix = "Miss", 					r = 0.79, 	g = 0.3, 	b = 0.85},
-	["SPELL_REFLECT"] = 	{frame = "damagetaken", prefix = "Reflect", 				r = 1, 		g = 1, 		b = 1},
-	["DODGE"] = 			{frame = "damagetaken", prefix = "Dodge", 					r = 1, 		g = 0.1, 	b = 0.1},
-	["PARRY"] = 			{frame = "damagetaken", prefix = "Parry", 					r = 1, 		g = 0.1, 	b = 0.1},
-	["BLOCK"] = 			{frame = "damagetaken", prefix = "Block", 	spec = true,	r = 1, 		g = 0.1, 	b = 0.1},
-	["RESIST"] = 			{frame = "damagetaken", prefix = "Resist", 	spec = true, 	r = 1, 		g = 0.1, 	b = 0.1},
-	["SPELL_RESIST"] = 		{frame = "damagetaken", prefix = "Resist", 	spec = true, 	r = 0.79, 	g = 0.3, 	b = 0.85},
-	["ABSORB"] = 			{frame = "damagetaken", prefix = "Absorb", 	spec = true, 	r = 1, 		g = 0.1, 	b = 0.1},
-	["SPELL_ABSORBED"] = 	{frame = "damagetaken", prefix = "Absorb", 	spec = true, 	r = 0.79, 	g = 0.3, 	b = 0.85},
+	["DAMAGE"] = 			{frame = "damagetaken", prefix =  "-", 			amount = true, 	r = 1, 		g = 0.1, 	b = 0.1},
+	["DAMAGE_CRIT"] = 		{frame = "damagetaken", prefix = "c-", 			amount = true, 	r = 1, 		g = 0.1, 	b = 0.1},
+	["SPELL_DAMAGE"] = 		{frame = "damagetaken", prefix =  "-", 			amount = true, 	r = 0.79, 	g = 0.3, 	b = 0.85},
+	["SPELL_DAMAGE_CRIT"] = {frame = "damagetaken", prefix = "c-", 			amount = true, 	r = 0.79, 	g = 0.3, 	b = 0.85},
+	["HEAL"] = 				{frame = "healingtaken", prefix =  "+", 		amount = true, 	r = 0.1, 	g = 1, 		b = 0.1},
+	["HEAL_CRIT"] = 		{frame = "healingtaken", prefix = "c+", 		amount = true, 	r = 0.1, 	g = 1, 		b = 0.1},
+	["PERIODIC_HEAL"] = 	{frame = "healingtaken", prefix =  "+", 		amount = true, 	r = 0.1, 	g = 1, 		b = 0.1},
+	["MISS"] = 				{frame = "damagetaken", prefix = "Miss", 						r = 1, 		g = 0.1, 	b = 0.1},
+	["SPELL_MISS"] = 		{frame = "damagetaken", prefix = "Miss", 						r = 0.79, 	g = 0.3, 	b = 0.85},
+	["SPELL_REFLECT"] = 	{frame = "damagetaken", prefix = "Reflect", 					r = 1, 		g = 1, 		b = 1},
+	["DODGE"] = 			{frame = "damagetaken", prefix = "Dodge", 						r = 1, 		g = 0.1, 	b = 0.1},
+	["PARRY"] = 			{frame = "damagetaken", prefix = "Parry", 						r = 1, 		g = 0.1, 	b = 0.1},
+	["BLOCK"] = 			{frame = "damagetaken", prefix = "Block", 		spec = true,	r = 1, 		g = 0.1, 	b = 0.1},
+	["RESIST"] = 			{frame = "damagetaken", prefix = "Resist", 		spec = true, 	r = 1, 		g = 0.1, 	b = 0.1},
+	["SPELL_RESIST"] = 		{frame = "damagetaken", prefix = "Resist", 		spec = true, 	r = 0.79, 	g = 0.3, 	b = 0.85},
+	["ABSORB"] = 			{frame = "damagetaken", prefix = "Absorb", 		spec = true, 	r = 1, 		g = 0.1, 	b = 0.1},
+	["SPELL_ABSORBED"] = 	{frame = "damagetaken", prefix = "Absorb", 		spec = true, 	r = 0.79, 	g = 0.3, 	b = 0.85},
 }
 
 if showreceived then
@@ -136,54 +138,63 @@ if showoutput then
 end
 
 local template = "-%s (%s)"
-function eventframe:COMBAT_TEXT_UPDATE(spelltype, arg2, arg3)
+
+function eventframe:COMBAT_TEXT_UPDATE()
 	local info = tbl[spelltype]
+	local timestamp, eventType, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, 
+			destFlags2, spellId, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing,
+			crushing, isOffHand	= CombatLogGetCurrentEventInfo()
+
 	if info then
 		local msg = info.prefix
 		if info.spec  then
-			if arg3 then
-				msg = template:format(arg2, arg3)
+			if amount then
+				msg = template:format(amount)
 			end
 		else
-			if info.arg2 then msg = msg..T.ShortValue2(arg2) end
-			if info.arg3 then msg = msg..T.ShortValue2(arg3) end
+			if info.amount then msg = amount end
+--			if info.arg3 then msg = msg..T.ShortValue2(arg3) end
 		end
 		frames[info.frame]:AddMessage(msg, info.r, info.g, info.b)
 	end
 end
 
-function eventframe:COMBAT_LOG_EVENT_UNFILTERED(...)
-	local icon, spellId, amount, critical, spellSchool
-    local timestamp, eventType, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, destFlags2 = select(1, ...)
+function eventframe:COMBAT_LOG_EVENT_UNFILTERED()
+ --   local timestamp, eventType, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, 
+--			destFlags2, spellId, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing,
+--			crushing, isOffHand	= CombatLogGetCurrentEventInfo() 
+	local icon
+	local spellId, amount, critical, spellSchool = CombatLogGetCurrentEventInfo()
+
 	if sourceGUID == UnitGUID("player") or (ctshowpet and sourceGUID == UnitGUID("pet")) or sourceFlags == gflags then
 		if eventType == 'SPELL_HEAL' or (showhots and eventType == 'SPELL_PERIODIC_HEAL') then
-			spellId = select(12, ...)
-			amount = select(15, ...)
-			critical = select(18, ...)
+--			spellId = select(12, ...)
+--			amount = select(15, ...)
+--			critical = select(18, ...)
 			icon = GetSpellTextureFormatted(spellId, critical and bigiconsize or iconsize)
 			frames["outputhealing"]:AddMessage(T.ShortValue2(amount)..""..icon, 0, 1, 0)
 		elseif destGUID ~= UnitGUID("player") then
 			if eventType=="SWING_DAMAGE" then
-				amount = select(12, ...)
-				critical = select(18, ...)
+--				amount = select(12, ...)
+--				critical = select(18, ...)
 				icon = GetSpellTextureFormatted(6603, critical and bigiconsize or iconsize)
 			elseif eventType == "RANGE_DAMAGE" then
-				spellId = select(12, ...)
-				amount = select(15, ...)
-				critical = select(21, ...)
+--				spellId = select(12, ...)
+--				amount = select(15, ...)
+--				critical = select(21, ...)
 				icon = GetSpellTextureFormatted(spellId, critical and bigiconsize or iconsize)
 			elseif eventType == "SPELL_DAMAGE" or (showdots and eventType == "SPELL_PERIODIC_DAMAGE") then
-				spellId = select(12, ...)
-				spellSchool = select(14, ...)
-				amount = select(15, ...)
-				critical = select(21, ...)
+--				spellId = select(12, ...)
+--				spellSchool = select(14, ...)
+--				amount = select(15, ...)
+--				critical = select(21, ...)
 				icon = GetSpellTextureFormatted(spellId, critical and bigiconsize or iconsize)
 			elseif eventType == "SWING_MISSED" then
-				amount = select(12, ...) -- misstype
-				icon = GetSpellTextureFormatted(6603, iconsize)
+--				amount = select(12, ...) -- misstype
+--				icon = GetSpellTextureFormatted(6603, iconsize)
 			elseif eventType == "SPELL_MISSED" or eventType == "RANGE_MISSED" then
-				spellId = select(12, ...)
-				amount = select(15, ...) -- misstype
+--				spellId = select(12, ...)
+--				amount = select(15, ...) -- misstype
 				icon = GetSpellTextureFormatted(spellId, iconsize)
 			end
 			
