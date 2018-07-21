@@ -10,6 +10,10 @@
 aurora.lua
 gui.lua
 
+AddOns\AddOns.xml
+FrameXML\FrameXML.xml
+SharedXML\SharedXML.xml
+
 AddOns\Blizzard_AchievementUI.lua
 AddOns\Blizzard_AdventureMap.lua
 AddOns\Blizzard_ArchaeologyUI.lua

@@ -1230,7 +1230,7 @@ end
 
 -- [[ Initialize addon ]]
 
-local Skin = CreateFrame("Frame", nil, UIParent)
+local Skin = CreateFrame("Frame") --, nil, UIParent
 Skin:RegisterEvent("ADDON_LOADED")
 --Skin:SetScript("OnEvent", function(self, event, addon)
 Skin:SetScript("OnEvent", function(_, _, addon)
@@ -1272,7 +1272,7 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		-- for modules
 		C.r, C.g, C.b = r, g, b
 
-		-- [[ Custom style support ]]
+		--[[ Custom style support 
 
 		local customStyle = AURORA_CUSTOM_STYLE
 
@@ -1307,7 +1307,7 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 				C.r, C.g, C.b = r, g, b
 			end
 		end
-
+		]]
 		-- [[ Plugin helper ]]
 
 		-- from this point, plugins added with F.AddPlugin are executed directly instead of cached
@@ -1469,6 +1469,14 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 			parent.bottom = bottom
 		end
 
+		local function toggleBackdrop(bu, show)
+			if show then
+				bu.bg:Show()
+			else
+				bu.bg:Hide()
+			end
+		end
+		--[[
 		local toggleBackdrop = function(bu, show)
 			if show then
 				bu.bg:Show()
@@ -1484,7 +1492,7 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 				bu.bottom:Hide()
 			end
 		end
-
+		]]
 		hooksecurefunc("ToggleDropDownMenu", function(level, _, dropDownFrame, anchorName)
 			if not level then level = 1 end
 
@@ -1663,7 +1671,7 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		GhostBD:SetPoint("BOTTOMRIGHT", GhostFrameContentsFrameIcon, 1, -1)
 		F.CreateBD(GhostBD, 0)
 
-		-- Currency frame
+		--[[ Currency frame
 
 		TokenFramePopupCorner:Hide()
 		TokenFramePopup:SetPoint("TOPLEFT", TokenFrame, "TOPRIGHT", 1, -28)
@@ -1732,8 +1740,8 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		hooksecurefunc(TokenFrameContainer, "update", updateButtons)
 
 		F.ReskinScroll(TokenFrameContainerScrollBar)
-
-		-- Reputation frame
+]]
+		--[[ Reputation frame
 
 		ReputationDetailCorner:Hide()
 		ReputationDetailDivider:Hide()
@@ -1802,11 +1810,11 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		F.ReskinScroll(ReputationListScrollFrameScrollBar)
 
 		select(3, ReputationDetailFrame:GetRegions()):Hide()
-
+		]]
 		-- Raid frame (social frame)
 
-		F.ReskinCheck(RaidFrameAllAssistCheckButton)
-
+		--F.ReskinCheck(RaidFrameAllAssistCheckButton)
+		
 		--[[ Professions
 
 		local professions = {"PrimaryProfession1", "PrimaryProfession2", "SecondaryProfession1", "SecondaryProfession2", "SecondaryProfession3", "SecondaryProfession4"}
@@ -1982,7 +1990,7 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 			end
 		end)
 		]]
-
+		--[[
 		local whoBg = CreateFrame("Frame", nil, WhoFrameEditBoxInset)
 		whoBg:SetPoint("TOPLEFT")
 		whoBg:SetPoint("BOTTOMRIGHT", -1, 1)
@@ -2043,8 +2051,8 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		F.ReskinPortraitFrame(GossipFrame, true)
 		F.Reskin(GossipFrameGreetingGoodbyeButton)
 		F.ReskinScroll(GossipGreetingScrollFrameScrollBar)
-
-		-- Fight Club Gambling
+		]]
+		--[[ Fight Club Gambling
 		GossipFrame:HookScript("OnShow", function()
 			C_Timer.After(.01, function()
 				local index = 1
@@ -2058,8 +2066,8 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 				end
 			end)
 		end)
-
-		-- Help frame
+		]]
+		--[[ Help frame
 
 		for i = 1, 15 do
 			local bu = _G["HelpFrameKnowledgebaseScrollFrameButton"..i]
@@ -2122,8 +2130,8 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		F.CreateBD(BrowserSettingsTooltip)
 		F.Reskin(BrowserSettingsTooltip.CacheButton)
 		F.Reskin(BrowserSettingsTooltip.CookiesButton)
-
-		-- Trade Frame
+		]]
+		--[[ Trade Frame
 
 		TradePlayerEnchantInset:DisableDrawLayer("BORDER")
 		TradePlayerItemsInset:DisableDrawLayer("BORDER")
@@ -2186,8 +2194,8 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 			bg2:SetFrameLevel(bu2:GetFrameLevel()-1)
 			F.CreateBD(bg2, .25)
 		end
-
-		-- Tutorial Frame
+		]]
+		--[[ Tutorial Frame
 
 		F.CreateBD(TutorialFrame)
 
@@ -2216,8 +2224,8 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		TutorialFrameOkayButton:SetBackdropColor(0, 0, 0, .25)
 		TutorialFramePrevButton:SetBackdropColor(0, 0, 0, .25)
 		TutorialFrameNextButton:SetBackdropColor(0, 0, 0, .25)
-
-		-- Tabard frame
+		]]
+		--[[ Tabard frame
 
 		TabardFrameMoneyInset:DisableDrawLayer("BORDER")
 		TabardFrameCustomizationBorder:Hide()
@@ -2255,7 +2263,7 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		F.Reskin(GuildRegistrarFrameGoodbyeButton)
 		F.Reskin(GuildRegistrarFramePurchaseButton)
 		F.Reskin(GuildRegistrarFrameCancelButton)
-
+		]]
 		-- Item text
 
 		select(18, ItemTextFrame:GetRegions()):Hide()
@@ -2277,7 +2285,7 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		ItemTextScrollFrameScrollBar.Bottom:Hide()
 		ItemTextFramePageBg:SetAlpha(0)
 
-		-- Petition frame
+		--[[ Petition frame
 
 		select(18, PetitionFrame:GetRegions()):Hide()
 		select(19, PetitionFrame:GetRegions()):Hide()
@@ -2292,8 +2300,8 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		F.Reskin(PetitionFrameRequestButton)
 		F.Reskin(PetitionFrameRenameButton)
 		F.Reskin(PetitionFrameCancelButton)
-
-		-- Micro button alerts
+		]]
+		--[[ Micro button alerts
 
 		local microButtons = {TalentMicroButtonAlert, CollectionsMicroButtonAlert, EJMicroButtonAlert}
 			for _, button in pairs(microButtons) do
@@ -2304,8 +2312,8 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 			F.SetBD(button)
 			F.ReskinClose(button.CloseButton)
 		end
-
-		-- Cinematic popup
+		]]
+		--[[ Cinematic popup
 
 		CinematicFrameCloseDialog:HookScript("OnShow", function(self)
 			self:SetScale(UIParent:GetScale())
@@ -2315,8 +2323,8 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		F.CreateSD(CinematicFrameCloseDialog)
 		F.Reskin(CinematicFrameCloseDialogConfirmButton)
 		F.Reskin(CinematicFrameCloseDialogResumeButton)
-
-		-- Chat config
+		]]
+		--[[ Chat config
 
 		hooksecurefunc("ChatConfig_CreateCheckboxes", function(frame, checkBoxTable, checkBoxTemplate)
 			if frame.styled then return end
@@ -2468,8 +2476,8 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		ChatConfigCombatSettingsFiltersCopyFilterButton:SetPoint("RIGHT", ChatConfigCombatSettingsFiltersAddFilterButton, "LEFT", -1, 0)
 		ChatConfigMoveFilterUpButton:SetPoint("TOPLEFT", ChatConfigCombatSettingsFilters, "BOTTOMLEFT", 3, 0)
 		ChatConfigMoveFilterDownButton:SetPoint("LEFT", ChatConfigMoveFilterUpButton, "RIGHT", 1, 0)
-
-		-- Level up display
+		]]
+		--[[ Level up display
 
 		LevelUpDisplaySide:HookScript("OnShow", function(self)
 			for i = 1, #self.unlockList do
@@ -2481,8 +2489,8 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 				end
 			end
 		end)
-
-		-- Movie Frame
+		]]
+		--[[ Movie Frame
 
 		MovieFrame.CloseDialog:HookScript("OnShow", function(self)
 			self:SetScale(UIParent:GetScale())
@@ -2492,7 +2500,7 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		F.CreateSD(MovieFrame.CloseDialog)
 		F.Reskin(MovieFrame.CloseDialog.ConfirmButton)
 		F.Reskin(MovieFrame.CloseDialog.ResumeButton)
-
+		]]
 		-- Pet battle queue popup
 
 		F.CreateBD(PetBattleQueueReadyFrame)
@@ -2501,7 +2509,7 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		F.Reskin(PetBattleQueueReadyFrame.AcceptButton)
 		F.Reskin(PetBattleQueueReadyFrame.DeclineButton)
 
-		-- PVP Ready Dialog
+		--[[ PVP Ready Dialog
 
 		local PVPReadyDialog = PVPReadyDialog
 
@@ -2548,7 +2556,7 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		F.Reskin(PVPReadyDialog.enterButton)
 		F.Reskin(PVPReadyDialog.leaveButton)
 		F.ReskinClose(PVPReadyDialogCloseButton)
-
+		]]
 		--[[ Hide regions ]]
 
 		--local bglayers = {"WhoFrameColumnHeader1", "WhoFrameColumnHeader2", "WhoFrameColumnHeader3", "WhoFrameColumnHeader4", "RaidInfoInstanceLabel", "RaidInfoIDLabel", "HelpFrameMainInset", "HelpFrame", "HelpFrameLeftInset", "RaidParentFrame"}
@@ -2646,12 +2654,12 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		ReadyCheckFrame:HookScript("OnShow", function(self) if UnitIsUnit("player", self.initiator) then self:Hide() end end)
 		]]
 
-		-- [[ Text colour functions ]]
+		--[[ Text colour functions 
 
 		NORMAL_QUEST_DISPLAY = gsub(NORMAL_QUEST_DISPLAY, "000000", "ffffff")
 		TRIVIAL_QUEST_DISPLAY = gsub(TRIVIAL_QUEST_DISPLAY, "000000", "ffffff")
 		IGNORED_QUEST_DISPLAY = gsub(IGNORED_QUEST_DISPLAY, "000000", "ffffff")
-
+		
 		GameFontBlackMedium:SetTextColor(1, 1, 1)
 		QuestFont:SetTextColor(1, 1, 1)
 		MailFont_Large:SetTextColor(1, 1, 1)
@@ -2674,12 +2682,12 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 		ItemTextPageText:SetTextColor(1, 1, 1)
 		ItemTextPageText.SetTextColor = F.dummy
 		CoreAbilityFont:SetTextColor(1, 1, 1)
-
+		
 		hooksecurefunc("UpdateProfessionButton", function(self)
 			self.spellString:SetTextColor(1, 1, 1);
 			self.subSpellString:SetTextColor(1, 1, 1)
 		end)
-
+		
 		hooksecurefunc("PaperDollFrame_SetLevel", function()
 			local primaryTalentTree = GetSpecialization()
 			local classDisplayName, class = UnitClass("player")
@@ -2697,7 +2705,7 @@ Skin:SetScript("OnEvent", function(_, _, addon)
 				CharacterLevelText:SetFormattedText(PLAYER_LEVEL_NO_SPEC, UnitLevel("player"), classColorString, classDisplayName)
 			end
 		end)
-
+		]]
 		-- [[ Change positions ]]
 
 		ChatConfigFrameDefaultButton:SetWidth(125)

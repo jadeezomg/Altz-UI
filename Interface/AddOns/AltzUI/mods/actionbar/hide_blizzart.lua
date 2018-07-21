@@ -1,10 +1,10 @@
 local T, C, L, G = unpack(select(2, ...))
 
-local blizzHider = CreateFrame("Frame", "Altz_BizzardHider")
+local blizzHider = CreateFrame('Frame', nil, _G['UIParent'], 'SecureFrameTemplate')
 blizzHider:Hide()
 
 --hide micro menu
-
+--[[
 local buttonList = {
 	--CharacterMicroButton,
 	--SpellbookMicroButton,
@@ -23,16 +23,14 @@ local buttonList = {
 for _, button in pairs(buttonList) do
 	button:SetParent(blizzHider)
 end
-
+]]
 --hide main menu bar frames
-MainMenuBar:SetParent(blizzHider)
---MainMenuBarPageNumber:SetParent(blizzHider)
 ActionBarDownButton:SetParent(blizzHider)
 ActionBarUpButton:SetParent(blizzHider)
 
--- bag
-MainMenuBarBackpackButton:SetParent(blizzHider)
 
+-- bag
+MicroButtonAndBagsBar:SetParent(blizzHider)
 --hide override actionbar frames
 OverrideActionBarExpBar:SetParent(blizzHider)
 OverrideActionBarHealthBar:SetParent(blizzHider)
@@ -51,6 +49,8 @@ OverrideActionBarPitchFrame:SetParent(blizzHider) --maybe we can use that frame 
   SlidingActionBarTexture1:SetTexture(nil)
   PossessBackground1:SetTexture(nil)
   PossessBackground2:SetTexture(nil)
+  --hud-microbutton-MainMenu-Up:SetTexture(nil)
+  --:SetTexture(nil):SetTexture(nil):SetTexture(nil):SetTexture(nil):SetTexture(nil):SetTexture(nil)
 	--[[
     MainMenuBarTexture0:SetTexture(nil)
     MainMenuBarTexture1:SetTexture(nil)

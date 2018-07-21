@@ -967,17 +967,17 @@ local EquipSetsMenu = CreateFrame("Frame", G.uiname.."EquipSetsMenu", UIParent, 
 local EquipSetsList = {}
 
 local function UpdateEquipSetsList()
-	local count = GetNumEquipmentSets()
+	local count = C_EquipmentSet.GetNumEquipmentSets()
 	if count > 0 then
 		EquipSetsList = {}
 		for index = 1, count do 
-			local name, Icon, setID, isEquipped, totalItems, equippedItems, inventoryItems, missingItems, ignoredSlots = GetEquipmentSetInfo(index)
+			local name, Icon, setID, isEquipped, totalItems, equippedItems, inventoryItems, missingItems, ignoredSlots = C_EquipmentSet.GetEquipmentSetInfo(index)
 			EquipSetsList[index] = {
 				text = name,
 				icon = Icon,
 				tCoordLeft = .1, tCoordRight = .9, tCoordTop = .1, tCoordBottom = .9,
 				checked = isEquipped,
-				func = function() UseEquipmentSet(name) end
+				func = function() C_EquipmentSet.UseEquipmentSet(setID) end
 			}
 		end
 	end
@@ -1000,7 +1000,7 @@ local function GetLowestDurability()
 end
 
 Durability:SetScript("OnMouseDown", function(self)
-	if not InCombatLockdown() and GetNumEquipmentSets() > 0 then
+	if not InCombatLockdown() and C_EquipmentSet.GetNumEquipmentSets() > 0 then
 		UpdateEquipSetsList()
 		L_EasyMenu(EquipSetsList, EquipSetsMenu, "cursor", 0, 0, "MENU", 2)
 		L_DropDownList1:ClearAllPoints()
@@ -1374,7 +1374,7 @@ MicromenuBar.Guild = CreateMicromenuButton(MicromenuBar, GuildMicroButton, GUILD
 MicromenuBar.Achievement = CreateMicromenuButton(MicromenuBar, AchievementMicroButton, ACHIEVEMENT_BUTTON, "Achievement")
 MicromenuBar.EJ = CreateMicromenuButton(MicromenuBar, EJMicroButton, ENCOUNTER_JOURNAL, "EJ")
 MicromenuBar.Store = CreateMicromenuButton(MicromenuBar, StoreMicroButton, BLIZZARD_STORE, "Store") 
-MicromenuBar.System = CreateMicromenuButton(MicromenuBar, MainMenuMicroButton, G.classcolor.." AltzUI "..G.Version.."|r", "System")
+MicromenuBar.System = CreateMicromenuButton(MicromenuBar, MainMenuMicroButton, G.classcolor.." Altz".."xJadee".."|r", "System")
 MicromenuBar.Pet = CreateMicromenuButton(MicromenuBar, CollectionsMicroButton, MOUNTS_AND_PETS, "Pet")
 MicromenuBar.Talent = CreateMicromenuButton(MicromenuBar, TalentMicroButton, TALENTS_BUTTON, "Talent")
 MicromenuBar.LFR = CreateMicromenuButton(MicromenuBar, LFDMicroButton, LFG_TITLE, "LFR")

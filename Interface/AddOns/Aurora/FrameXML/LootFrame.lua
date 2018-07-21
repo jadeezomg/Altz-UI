@@ -73,7 +73,7 @@ tinsert(C.themes["Aurora"], function()
 	end)
 
 	F.CreateBD(MasterLooterFrame)
-	F.ReskinClose(select(3, MasterLooterFrame:GetChildren()))
+	--F.ReskinClose(select(3, MasterLooterFrame:GetChildren()))
 	F.CreateSD(MasterLooterFrame)
 
 	hooksecurefunc("MasterLooterFrame_UpdatePlayers", function()

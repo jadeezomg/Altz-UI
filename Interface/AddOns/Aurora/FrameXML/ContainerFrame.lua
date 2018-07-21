@@ -69,7 +69,7 @@ tinsert(C.themes["Aurora"], function()
 		f:SetFrameLevel(con:GetFrameLevel()-1)
 		F.CreateBD(f)
 
-		F.ReskinClose(_G["ContainerFrame"..i.."CloseButton"], "TOPRIGHT", con, "TOPRIGHT", -6, -6)
+		--F.ReskinClose(_G["ContainerFrame"..i.."CloseButton"], "TOPRIGHT", con, "TOPRIGHT", -6, -6)
 	end
 
 	for i = 1, 3 do
