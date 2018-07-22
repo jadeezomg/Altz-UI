@@ -714,7 +714,7 @@ repbar:SetStatusBarTexture(G.media.blank)
 repbar:SetStatusBarColor(.4, 1, .2)
 repbar:SetFrameLevel(Minimap:GetFrameLevel()+3)
 repbar.border = F.CreateBDFrame(repbar, .8)
-
+--[[
 local artifactbar = CreateFrame("StatusBar", G.uiname.."ArtifactExperienceBar", Minimap)
 artifactbar:SetWidth(5)
 artifactbar:SetOrientation("VERTICAL")
@@ -722,7 +722,7 @@ artifactbar:SetStatusBarTexture(G.media.blank)
 artifactbar:SetStatusBarColor(.901, .8, .601)
 artifactbar:SetFrameLevel(Minimap:GetFrameLevel()+3)
 artifactbar.border = F.CreateBDFrame(artifactbar, .8)
-
+]]
 local function CommaValue(amount)
 	local formatted = amount
 	while true do  
@@ -781,7 +781,7 @@ repbar:SetScript("OnEnter", function()
 end)
 repbar:SetScript("OnLeave", function() GameTooltip:Hide() end)
 repbar:SetScript("OnMouseDown", function() ToggleCharacter("ReputationFrame") end)
-
+--[[
 artifactbar:SetScript("OnEnter", MainMenuBar_ArtifactTick_OnEnter)
 artifactbar:SetScript("OnLeave", function() GameTooltip:Hide() end)
 artifactbar:SetScript("OnMouseDown", function()
@@ -791,7 +791,7 @@ artifactbar:SetScript("OnMouseDown", function()
 		HideUIPanel(ArtifactFrame)
 	end
 end)
-
+]]
 xpbar:SetScript("OnEvent", function(self, event, arg1)
 	local artifactItemID, _, _, _, artifactTotalXP, artifactPointsSpent, _, _, _, _, _, artifactMaxed, artifactTier = C_ArtifactUI.GetEquippedArtifactInfo()
 	local name, reaction, minRep, maxRep, value, factionID = GetWatchedFactionInfo()
@@ -841,7 +841,7 @@ xpbar:SetScript("OnEvent", function(self, event, arg1)
 			repbar:Hide()
 		end
 	end
---[[	
+	--[[
 	if event == "PLAYER_LOGIN" or (event == "UNIT_INVENTORY_CHANGED" and arg1 == "player") or event == "ARTIFACT_XP_UPDATE" then
 		if showArtifact then
 			artifactbar:Show()
@@ -852,33 +852,32 @@ xpbar:SetScript("OnEvent", function(self, event, arg1)
 			artifactbar:Hide()
 		end
 	end
-	
+	]]
 	if showXP then
 		xpbar:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 0, 0)
 		xpbar:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 0, 0)
 		if showRep then
 			repbar:SetPoint("BOTTOMRIGHT", xpbar, "BOTTOMLEFT", -1, 0)
 			repbar:SetPoint("TOPRIGHT", xpbar, "TOPLEFT", -1, 0)
-			if showArtifact then
-				artifactbar:SetPoint("BOTTOMRIGHT", repbar, "BOTTOMLEFT", -1, 0)
-				artifactbar:SetPoint("TOPRIGHT", repbar, "TOPLEFT", -1, 0)
-			end
-		elseif showArtifact then
-			artifactbar:SetPoint("BOTTOMRIGHT", xpbar, "BOTTOMLEFT", -1, 0)
-			artifactbar:SetPoint("TOPRIGHT", xpbar, "TOPLEFT", -1, 0)
+--			if showArtifact then
+--				artifactbar:SetPoint("BOTTOMRIGHT", repbar, "BOTTOMLEFT", -1, 0)
+--				artifactbar:SetPoint("TOPRIGHT", repbar, "TOPLEFT", -1, 0)
+--			end
+--		elseif showArtifact then
+--			artifactbar:SetPoint("BOTTOMRIGHT", xpbar, "BOTTOMLEFT", -1, 0)
+--			artifactbar:SetPoint("TOPRIGHT", xpbar, "TOPLEFT", -1, 0)
 		end
 	elseif showRep then
 		repbar:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 0, 0)
 		repbar:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 0, 0)
-		if showArtifact then
-			artifactbar:SetPoint("BOTTOMRIGHT", repbar, "BOTTOMLEFT", -1, 0)
-			artifactbar:SetPoint("TOPRIGHT", repbar, "TOPLEFT", -1, 0)
-		end
-	elseif showArtifact then
-		artifactbar:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 0, 0)
-		artifactbar:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 0, 0)
+--		if showArtifact then
+--			artifactbar:SetPoint("BOTTOMRIGHT", repbar, "BOTTOMLEFT", -1, 0)
+--			artifactbar:SetPoint("TOPRIGHT", repbar, "TOPLEFT", -1, 0)
+--		end
+--	elseif showArtifact then
+--		artifactbar:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 0, 0)
+--		artifactbar:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 0, 0)
 	end
-	]]
 end)
 
 xpbar:RegisterEvent("PLAYER_XP_UPDATE")

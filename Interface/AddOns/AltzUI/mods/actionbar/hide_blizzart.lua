@@ -36,6 +36,14 @@ OverrideActionBarExpBar:SetParent(blizzHider)
 OverrideActionBarHealthBar:SetParent(blizzHider)
 OverrideActionBarPowerBar:SetParent(blizzHider)
 OverrideActionBarPitchFrame:SetParent(blizzHider) --maybe we can use that frame later for pitchig and such
+OverrideActionBarExpBarOverlayFrame:SetParent(blizzHider)	
+OverrideActionBarExpBarXpMid:SetParent(blizzHider)
+OverrideActionBarExpBarXpR:SetParent(blizzHider)
+
+
+
+
+
 
   -----------------------------
   -- HIDE TEXTURES
@@ -49,21 +57,11 @@ OverrideActionBarPitchFrame:SetParent(blizzHider) --maybe we can use that frame 
   SlidingActionBarTexture1:SetTexture(nil)
   PossessBackground1:SetTexture(nil)
   PossessBackground2:SetTexture(nil)
-  --hud-microbutton-MainMenu-Up:SetTexture(nil)
-  --:SetTexture(nil):SetTexture(nil):SetTexture(nil):SetTexture(nil):SetTexture(nil):SetTexture(nil)
-	--[[
-    MainMenuBarTexture0:SetTexture(nil)
-    MainMenuBarTexture1:SetTexture(nil)
-    MainMenuBarTexture2:SetTexture(nil)
-    MainMenuBarTexture3:SetTexture(nil)
-    MainMenuBarLeftEndCap:SetTexture(nil)
-    MainMenuBarRightEndCap:SetTexture(nil)
-	]]--
-
-	MainMenuBarArtFrame.PageNumber:Hide()
-	MainMenuBarArtFrameBackground:Hide()
-	MainMenuBarArtFrame.RightEndCap:Hide()
-	MainMenuBarArtFrame.LeftEndCap:Hide()
+  MainMenuBarArtFrame.PageNumber:Hide()
+  MainMenuBarArtFrameBackground:Hide()
+  MainMenuBarArtFrame.RightEndCap:Hide()
+  MainMenuBarArtFrame.LeftEndCap:Hide()
+  StatusTrackingBarManager:Hide()
   --remove OverrideBar textures
 
     local textureList =  {
@@ -80,7 +78,7 @@ OverrideActionBarPitchFrame:SetParent(blizzHider) --maybe we can use that frame 
       "_MicroBGMid",
       "ButtonBGL",
       "ButtonBGR",
-      "_ButtonBGMid",
+      "_ButtonBGMid"
     }
 
     for _,tex in pairs(textureList) do
