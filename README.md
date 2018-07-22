@@ -11,6 +11,8 @@ disabled/broken features:
 
 -combattext in/out (disable it in settings)
 
+-black-/whitelisting of spells in nameplates/raid/etc
+
 -raid food/flask check
 
 -Class colors for some frames
