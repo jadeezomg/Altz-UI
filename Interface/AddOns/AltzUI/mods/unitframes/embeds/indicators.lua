@@ -49,7 +49,7 @@ oUF.Tags.Methods['Mlight:pws'] = function(u) -- 盾
 	if pws then
 		pws_time = T.FormatTime(pws_expiration-GetTime())
 		
-		real_absorb = select(17, UnitBuff(u, GetSpellInfo(17), nil, "PLAYER"))
+		real_absorb = select(16, UnitBuff(u, GetSpellInfo(17), nil, "PLAYER"))
 		max_absorb = tostring(string.match(gsub(gsub(GetSpellDescription(17), ",", ""),"%d+","",1),"%d+"))
 		
 		perc = real_absorb/max_absorb
@@ -69,7 +69,7 @@ oUF.Tags.Methods['Mlight:yzdx'] = function(u) -- 意志洞悉
 	if yzdx then
 		yzdx_time = T.FormatTime(yzdx_expiration-GetTime())
 		
-		real_absorb = select(17, UnitBuff(u, GetSpellInfo(152118), nil, "PLAYER"))
+		real_absorb = select(16, UnitBuff(u, GetSpellInfo(152118), nil, "PLAYER"))
 		max_absorb = tostring(string.match(gsub(gsub(GetSpellDescription(152118), ",", ""),"%d+","",1),"%d+"))*2.5
 		
 		perc = real_absorb/max_absorb
@@ -91,7 +91,7 @@ oUF.Tags.Events['Mlight:tlzg'] = "UNIT_AURA"
 
 -- Druid 德鲁伊
 oUF.Tags.Methods['Mlight:lb'] = function(u) -- 生命绽放
-    local name, _, c,_,_, expirationTime, fromwho = UnitBuff(u, GetSpellInfo(33763))
+    local name, _, c, _,_, expirationTime, fromwho = UnitBuff(u, GetSpellInfo(33763))
     if(fromwho == "player") then
 		local spellTimer = (expirationTime-GetTime())
 		local TimeLeft = T.FormatTime(spellTimer)
@@ -157,7 +157,7 @@ oUF.Tags.Events['Mlight:wildgrowth'] = "UNIT_AURA"
 oUF.Tags.Methods['Mlight:snla'] = function(u) --塞纳里奥结界
 	local name, _,_,_,_, _, fromwho = UnitBuff(u, GetSpellInfo(102351))
 	if(fromwho == "player") then
-		local w = select(11, UnitBuff(u, GetSpellInfo(102351)))
+		local w = select(10, UnitBuff(u, GetSpellInfo(102351)))
 		if w == 102351 then
 			return "|cffFFF8DCY|r"
 		else
@@ -288,8 +288,8 @@ end
 oUF.Tags.Events['Mlight:ayj'] = 'UNIT_AURA'
 
 oUF.Tags.Methods['Mlight:lt'] = function(u) --基尔加丹的蓝图
-    local name,_,_,_,_, expirationTime, fromwho = UnitBuff(u, GetSpellInfo(242622)) -- hot
-	local name2,_,_,_,_, expirationTime2, fromwho2 = UnitBuff(u, GetSpellInfo(242623)) -- 吸收盾
+    local name, _,_,_,_, expirationTime, fromwho = UnitBuff(u, GetSpellInfo(242622)) -- hot
+	local name2, _,_,_,_, expirationTime2, fromwho2 = UnitBuff(u, GetSpellInfo(242623)) -- 吸收盾
     if (fromwho == "player") then
         return "|cffFF3030b|r"
 	elseif (fromwho2 == "player") then
@@ -299,12 +299,12 @@ end
 oUF.Tags.Events['Mlight:lt'] = 'UNIT_AURA'
 
 oUF.Tags.Methods['Mlight:da'] = function(u) --信仰档案
-    local name,_,_,_,_, expirationTime, fromwho = UnitBuff(u, GetSpellInfo(242619)) -- hot
-	local name2,_,_,_,_, expirationTime2, fromwho2 = UnitBuff(u, GetSpellInfo(242621)) -- 吸收盾
+    local name, _,_,_,_, expirationTime, fromwho = UnitBuff(u, GetSpellInfo(242619)) -- hot
+	local name2, _,_,_,_, expirationTime2, fromwho2 = UnitBuff(u, GetSpellInfo(242621)) -- 吸收盾
     if (fromwho == "player") then
         return "|cffFFD700b|r"
 	elseif (fromwho2 == "player") then
-		local w = select(11, UnitBuff(u, GetSpellInfo(242621)))
+		local w = select(10, UnitBuff(u, GetSpellInfo(242621)))
 		if w == 242621 then
 			return "|cffFFD700z|r"
 		end
@@ -313,7 +313,7 @@ end
 oUF.Tags.Events['Mlight:da'] = 'UNIT_AURA'
 
 oUF.Tags.Methods['Mlight:xnhd'] = function(u) --邪能护盾
-    local name,_,_,_,_, expirationTime, fromwho = UnitBuff(u, GetSpellInfo(253277))
+    local name, _,_,_,_, expirationTime, fromwho = UnitBuff(u, GetSpellInfo(253277))
     if (fromwho == "player") then
         return "|cffC0FF3Ez|r"
     end

@@ -599,7 +599,7 @@ Coords:Hide()
 
 Minimap:HookScript("OnUpdate",function()
 	if select(2, GetInstanceInfo()) == "none" then
-		local x,y = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player"):GetXY()
+		local x,y = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"),"player"):GetXY() -- somehow produces error when entering invasionpoint
 		if x>0 or y>0 then
 			Coords:SetText(string.format("%d,%d",x*100,y*100));
 		else
