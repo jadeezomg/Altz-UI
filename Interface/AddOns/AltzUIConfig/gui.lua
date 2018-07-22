@@ -22,7 +22,7 @@ F.SetBD(GUI)
 
 GUI.title = T.createtext(GUI, "OVERLAY", 25, "OUTLINE", "CENTER")
 GUI.title:SetPoint("BOTTOM", GUI, "TOP", 0, -8)
-GUI.title:SetText(G.classcolor.."Altz UI  "..G.Version.."|r")
+GUI.title:SetText(G.classcolor.."Altz UI x Jadee BfAfix (Unofficial)")
 
 GUI.close = CreateFrame("Button", nil, GUI)
 GUI.close:SetPoint("BOTTOMRIGHT", -10, 10)
@@ -177,6 +177,11 @@ IntroOptions.text:SetPoint("BOTTOMLEFT", 17, 10)
 IntroOptions.text:SetTextColor(.5, .5, .5)
 IntroOptions.text:SetText(L["小泡泡"].."\nbbs.ngacn.cc/read.php?tid=4729675\nwww.wowinterface.com/downloads/info21263-AltzUIforMoP")
 
+IntroOptions.text = T.createtext(IntroOptions, "OVERLAY", 12, "NONE", "LEFT")
+IntroOptions.text:SetPoint("TOPLEFT", 40, -50)
+IntroOptions.text:SetTextColor(1, 1, 1)
+IntroOptions.text:SetText("Check for updated versions at github.com/jadeezomg/Altz-UI \nBe aware of bugs, more information in WoWinterface comments\n\nCurrently broken/disabled features:\n    combattext\n    food/flask check\n    probably many more ...")
+
 IntroOptions.line = IntroOptions:CreateTexture(nil, "ARTWORK")
 IntroOptions.line:SetSize(IntroOptions:GetWidth()-30, 1)
 IntroOptions.line:SetPoint("BOTTOM", 0, 50)
@@ -256,6 +261,7 @@ end)
 IntroOptions.Import:SetScript("OnHide", function()
 	StaticPopup_Hide(G.uiname.."Import Confirm")
 end)
+
 --====================================================--
 --[[              -- Chat Options --                ]]--
 --====================================================--
@@ -2565,8 +2571,8 @@ local CombattextOptions = CreateOptionPage("CombatText Options", L["战斗信息
 T.createcheckbutton(CombattextOptions, 30, 60, L["启用"], "CombattextOptions", "combattext")
 T.createcheckbutton(CombattextOptions, 30, 90, L["隐藏浮动战斗信息接受"], "CombattextOptions", "hidblz_receive")
 T.createcheckbutton(CombattextOptions, 30, 120, L["隐藏浮动战斗信息输出"], "CombattextOptions", "hidblz")
-T.createcheckbutton(CombattextOptions, 30, 150, L["承受伤害/治疗"], "CombattextOptions", "showreceivedct")
-T.createcheckbutton(CombattextOptions, 30, 180, L["输出伤害/治疗"], "CombattextOptions", "showoutputct")
+T.createcheckbutton(CombattextOptions, 30, 150, "showreceivedct not fixed, please disable", "CombattextOptions", "showreceivedct")
+T.createcheckbutton(CombattextOptions, 30, 180, "showoutputct not fixed, please disable", "CombattextOptions", "showoutputct")
 local textformattype_group = {
 	["k"] = "10000 → 10k",
 	["w"] = "10000 → 1w",

@@ -71,7 +71,7 @@
 	<Script file="mods\tip\tip.lua"/>
 
 	<Script file="mods\tweaks\already known.lua"/>
-	<Script file="mods\tweaks\combattext.lua"/>
+	##<Script file="mods\tweaks\combattext.lua"/>
 	<Script file="mods\tweaks\dragemall.lua"/>
 	<Script file="mods\tweaks\focus.lua"/>
 	<Script file="mods\tweaks\hoverbind.lua"/>

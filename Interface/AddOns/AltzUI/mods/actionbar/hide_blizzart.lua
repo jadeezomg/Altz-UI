@@ -4,7 +4,7 @@ local blizzHider = CreateFrame('Frame', nil, _G['UIParent'], 'SecureFrameTemplat
 blizzHider:Hide()
 
 --hide micro menu
---[[
+
 local buttonList = {
 	--CharacterMicroButton,
 	--SpellbookMicroButton,
@@ -23,27 +23,36 @@ local buttonList = {
 for _, button in pairs(buttonList) do
 	button:SetParent(blizzHider)
 end
-]]
---hide main menu bar frames
+
+--	hide main menu bar frames
 ActionBarDownButton:SetParent(blizzHider)
 ActionBarUpButton:SetParent(blizzHider)
 
+--	get rid of blizzard alerts
+function MainMenuMicroButton_PositionAlert(alert)
+	return false;
+end
 
--- bag
+function MainMenuMicroButton_AreAlertsEffectivelyEnabled()
+	return false;
+end
+
+--	hide xp bar
+StatusTrackingBarManager:Hide()
+
+--	bag
 MicroButtonAndBagsBar:SetParent(blizzHider)
---hide override actionbar frames
+
+--	hide override actionbar frames
 OverrideActionBarExpBar:SetParent(blizzHider)
 OverrideActionBarHealthBar:SetParent(blizzHider)
 OverrideActionBarPowerBar:SetParent(blizzHider)
 OverrideActionBarPitchFrame:SetParent(blizzHider) --maybe we can use that frame later for pitchig and such
 OverrideActionBarExpBarOverlayFrame:SetParent(blizzHider)	
-OverrideActionBarExpBarXpMid:SetParent(blizzHider)
-OverrideActionBarExpBarXpR:SetParent(blizzHider)
-
-
-
-
-
+MainMenuBarArtFrame.PageNumber:SetParent(blizzHider)
+MainMenuBarArtFrameBackground:SetParent(blizzHider)
+MainMenuBarArtFrame.RightEndCap:SetParent(blizzHider)
+MainMenuBarArtFrame.LeftEndCap:SetParent(blizzHider)
 
   -----------------------------
   -- HIDE TEXTURES
@@ -57,28 +66,41 @@ OverrideActionBarExpBarXpR:SetParent(blizzHider)
   SlidingActionBarTexture1:SetTexture(nil)
   PossessBackground1:SetTexture(nil)
   PossessBackground2:SetTexture(nil)
-  MainMenuBarArtFrame.PageNumber:Hide()
-  MainMenuBarArtFrameBackground:Hide()
-  MainMenuBarArtFrame.RightEndCap:Hide()
-  MainMenuBarArtFrame.LeftEndCap:Hide()
-  StatusTrackingBarManager:Hide()
+  
   --remove OverrideBar textures
 
     local textureList =  {
-      "_BG",
-      "EndCapL",
-      "EndCapR",
-      "_Border",
-      "Divider1",
-      "Divider2",
-      "Divider3",
-      "ExitBG",
-      "MicroBGL",
-      "MicroBGR",
-      "_MicroBGMid",
-      "ButtonBGL",
-      "ButtonBGR",
-      "_ButtonBGMid"
+	"_BG",
+	"EndCapL",
+	"EndCapR",
+	"_Border",
+	"Divider1",
+	"Divider2",
+	"Divider3",
+	"ExitBG",
+	"MicroBGL",
+	"MicroBGR",
+	"_MicroBGMid",
+	"ButtonBGL",
+	"ButtonBGR",
+	"_ButtonBGMid",
+	"PitchOverlay",
+	"PitchButtonBG",
+	"PitchBG",
+	"PitchMarker",
+	"PitchUpUp",
+	"PitchUpDown",
+	"PitchUpHighlight",
+	"PitchDownUp",
+	"PitchDownDown",
+	"PitchDownHighlight",
+	"LeaveUp",
+	"LeaveDown",
+	"LeaveHighlight",
+	"HealthBarBG",
+	"HealthBarOverlay",
+	"PowerBarBG",
+	"PowerBarOverlay",
     }
 
     for _,tex in pairs(textureList) do

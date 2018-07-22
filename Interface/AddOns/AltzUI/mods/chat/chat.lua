@@ -99,6 +99,8 @@ end
 
 ChatFrameMenuButton.Show = ChatFrameMenuButton.Hide 
 ChatFrameMenuButton:Hide()
+ChatFrameChannelButton.Show = ChatFrameChannelButton.Hide 
+ChatFrameChannelButton:Hide()
 QuickJoinToastButton.Show = QuickJoinToastButton.Hide 
 QuickJoinToastButton:Hide()
 BNToastFrame:SetClampedToScreen(true)
