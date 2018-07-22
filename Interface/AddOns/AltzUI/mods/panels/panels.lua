@@ -596,10 +596,10 @@ local Coords = T.createtext(Minimap, "OVERLAY", 12, "OUTLINE", "CENTER")
 Coords:SetPoint("CENTER", 0, 0)
 Coords:Hide()
 
---[[
+
 Minimap:HookScript("OnUpdate",function()
 	if select(2, GetInstanceInfo()) == "none" then
-		local x,y = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player")
+		local x,y = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player"):GetXY()
 		if x>0 or y>0 then
 			Coords:SetText(string.format("%d,%d",x*100,y*100));
 		else
@@ -607,7 +607,7 @@ Minimap:HookScript("OnUpdate",function()
 		end
 	end
 end)
-]]
+
 
 Minimap:HookScript("OnEvent",function(self,event,...)
 	if event=="ZONE_CHANGED_NEW_AREA" and not WorldMapFrame:IsShown() then
@@ -1271,6 +1271,9 @@ local function CreateMicromenuButton(parent, bu, text, original)
 		Button.SetPushedTexture = T.dummy
 		Button.SetHighlightTexture = T.dummy
 		Button.SetDisabledTexture = T.dummy
+		Button.SetNormalAtlas = T.dummy
+		Button.SetPushedAtlas = T.dummy
+		Button.SetDisabledAtlas = T.dummy
 		for j = 1, Button:GetNumRegions() do
 			local region = select(j, Button:GetRegions())
 			region:Hide()

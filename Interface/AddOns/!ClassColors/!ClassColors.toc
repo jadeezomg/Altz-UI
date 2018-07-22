@@ -1,13 +1,13 @@
-﻿## Interface: 70200
+## Interface: 80000
 ## Version: 7.0.3.1
 
 ## Title: Class Colors
 ## Notes: Change class colors without breaking parts of the default UI.
-## Notes-deDE: Ändert die Klassenfarben ohne Interferenzen mit dem Standard-UI.
-## Notes-esES: Cambiar los colores de clases, sin interferir con la interfaz estandár.
-## Notes-esMX: Cambiar los colores de clases, sin interferir con la interfaz estandár.
-## Notes-ptBR: Alterar as cores das classes, sem interferir com a interface padrão.
-## Notes-ruRU: Изменение цветов класса не вмешиваясь в стандартном интерфейсе.
+## Notes-deDE: �ndert die Klassenfarben ohne Interferenzen mit dem Standard-UI.
+## Notes-esES: Cambiar los colores de clases, sin interferir con la interfaz estand�r.
+## Notes-esMX: Cambiar los colores de clases, sin interferir con la interfaz estand�r.
+## Notes-ptBR: Alterar as cores das classes, sem interferir com a interface padr�o.
+## Notes-ruRU: ????????? ?????? ?????? ?? ?????????? ? ??????????? ??????????.
 
 ## Author: Phanx
 ## X-Email: addons@phanx.net
