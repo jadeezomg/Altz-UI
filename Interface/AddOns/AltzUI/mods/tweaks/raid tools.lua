@@ -353,7 +353,7 @@ local AncButton = CreateFrame("Button",  G.uiname.."RaidToolAncButton", RaidTool
 AncButton:SetPoint("RIGHT", WorldMarkButton, "LEFT", -5, 0)
 AncButton:SetSize(15, 15)
 T.SkinButton(AncButton, G.Iconpath.."anc", true)
-
+--[[
 AncButton:SetScript("OnClick", function(self)
 	if IsInRaid() then
 		UpdateFlasked()
@@ -380,7 +380,7 @@ AncButton:SetScript("OnClick", function(self)
 		SendChatMessage(L["距离过远"]..": "..table.concat(OoR, ", "), "RAID")
 	end
 end)
-
+]]
 local PullButton = CreateFrame("Button", G.uiname.."RaidToolPullButton", RaidToolFrame, "UIPanelButtonTemplate")
 PullButton:SetPoint("TOPRIGHT", RaidToolFrame, "TOP", -5, -40)
 PullButton:SetSize(RaidToolFrame:GetWidth()/2-20, 25)
