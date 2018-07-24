@@ -78,15 +78,15 @@ local px, py, tx, ty
 local function GetBearing(unit)
     if unit == 'player' then return end
 
-    px, py = GetPlayerMapPosition("player")
+    px, py = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"),"player"):GetXY()
     if((px or 0)+(py or 0) <= 0) then
         if WorldMapFrame:IsVisible() then return end
         SetMapToCurrentZone()
-        px, py = GetPlayerMapPosition("player")
+        px, py = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"),"player"):GetXY()
         if((px or 0)+(py or 0) <= 0) then return end
     end
 
-    tx, ty = GetPlayerMapPosition(unit)
+    tx, ty = C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit(unit),unit):GetXY()
     if((tx or 0)+(ty or 0) <= 0) then return end
 
     return pi - atan2(px-tx,ty-py)
